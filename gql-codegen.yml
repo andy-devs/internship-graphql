@@ -1,0 +1,38 @@
+overwrite: true
+schema: ${REACT_APP_GRAPHQL_API_URL}
+documents: 'src/**/*.graphql'
+generates:
+  src/shared/types/__generated__/gql-types.ts:
+    plugins:
+      - 'typescript'
+
+  src/:
+    preset: near-operation-file
+    presetConfig:
+      folder: __generated__
+      extension: .tsx
+      baseTypesPath: shared/types/__generated__/gql-types.ts
+    plugins:
+      - typescript-operations
+      - typescript-react-apollo
+    config:
+      documentMode: 'documentNodeImportFragments'
+      namingConvention: keep
+      nonOptionalTypename: true
+      dedupeOperationSuffix: true
+      omitOperationSuffix: true
+      withHooks: true
+      withComponent: false
+      withHOC: false
+      reactApolloVersion: 3
+
+  src/shared/services/apollo/schema.json:
+    plugins:
+      - 'introspection'
+
+  src/shared/services/apollo/possible-types.json:
+    plugins:
+      - fragment-matcher
+    config:
+      apolloClientVersion: 3
+      useExplicitTyping: true
