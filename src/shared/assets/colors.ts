@@ -15,5 +15,4 @@ export const COLORS = {
   grayscale700: '#303030',
   grayscale800: '#212121',
   grayscale900: '#101010',
-  transparency_modal_bg: 'rgba(135, 140, 153, 0.5)',
 };

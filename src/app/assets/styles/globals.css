@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  /* This won't be included in your compiled CSS unless you actually use it */
+  .title_bold_24pt {
+    font-family: 'Gilroy', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 20px;
+    letter-spacing: 0.01em;
+  }
+
+  .title_semibold_18pt {
+    font-family: 'Gilroy', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 21px;
+    letter-spacing: 0.01em;
+  }
+
+  .body_bold_20pt {
+    font-family: 'Gilroy', sans-serif;
+    font-style: normal;
+    font-size: 20px;
+    line-height: 20px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+  }
+
+  .body_semibold_16pt {
+    font-family: 'Gilroy', sans-serif;
+    font-style: normal;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+  .body_medium_16pt {
+    font-family: 'Gilroy', sans-serif;
+    font-style: normal;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+  .body_medium_14pt {
+    font-family: 'Gilroy', sans-serif;
+    font-style: normal;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+  .body_regular_16pt {
+    font-family: 'Gilroy', sans-serif;
+    font-style: normal;
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+  }
+  .body_regular_14pt {
+    font-family: 'Gilroy', sans-serif;
+    font-style: normal;
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+  }
+  .caption_regular_12pt {
+    font-family: 'Gilroy', sans-serif;
+    font-style: normal;
+    font-size: 12px;
+    line-height: 14px;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+  }
+}
