@@ -1,4 +1,4 @@
-import { FC, ReactElement } from 'react';
+import { FC } from 'react';
 
 interface AuthLayoutProps {
   children: JSX.Element[] | JSX.Element;
@@ -6,7 +6,7 @@ interface AuthLayoutProps {
 
 export const AuthLayout: FC<AuthLayoutProps> = ({ children }) => {
   return (
-    <main className=" flex h-full min-h-screen flex-col items-center justify-center">
+    <main className="flex h-full min-h-screen flex-col items-center justify-center">
       <>{children}</>
     </main>
   );

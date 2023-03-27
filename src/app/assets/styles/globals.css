@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  box-sizing: border-box;
+}
+
 @layer components {
   /* This won't be included in your compiled CSS unless you actually use it */
   .title_bold_24pt {

@@ -1,6 +1,5 @@
 import { AuthFormCard } from '@entities/user/ui/auth-form-card';
 import { BaseButton } from '@shared/ui/buttons/base-button';
-import { PrimaryButton } from '@shared/ui/buttons/primary-button';
 import { FC } from 'react';
 
 interface SignInFormProps {}
