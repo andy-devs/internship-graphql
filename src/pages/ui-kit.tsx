@@ -1,4 +1,7 @@
+import { SvgShareIcon } from '@shared/icons/components/share-icon';
+import { EditButton } from '@shared/ui/buttons/edit-button';
 import { FlatButton } from '@shared/ui/buttons/flat-button';
+import { IconButton } from '@shared/ui/buttons/icon-button';
 import { PrimaryButton } from '@shared/ui/buttons/primary-button';
 import { SecondaryButton } from '@shared/ui/buttons/secondary-button';
 import { FC } from 'react';
@@ -28,6 +31,10 @@ const SignUp: FC<SignUpProps> = () => {
       <h2>Flat</h2>
       <FlatButton text="test" />
       <FlatButton text="test" disabled />
+      <h2>Edit</h2>
+      <EditButton />
+      <h2>Icon</h2>
+      <IconButton icon={<SvgShareIcon />} />
     </div>
   );
 };
