@@ -3,6 +3,7 @@ module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     colors: {
+      transparent: 'transparent',
       primary200: '#FFD1C3',
       primary300: '#D2B7AF',
       primary400: '#FD825D',
@@ -26,7 +27,7 @@ module.exports = {
     spacing: {
       px: '1px',
       0: '0',
-      0.5: '0',
+      0.5: '4px',
       1: '8px',
       1.5: '12px',
       2: '16px',

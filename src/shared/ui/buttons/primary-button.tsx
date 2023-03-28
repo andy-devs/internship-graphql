@@ -1,19 +1,13 @@
 import { FC } from 'react';
 
-interface PrimaryButtonProps {
-  text: string;
-  size?: 'small' | 'large';
-  isLoading?: boolean;
-  disabled?: boolean;
-  onClick?: () => void;
-}
+import { BaseButton, BaseButtonProps } from './base-button';
 
-export const PrimaryButton: FC<PrimaryButtonProps> = ({ text, size, isLoading, disabled, onClick }) => {
+export const PrimaryButton: FC<BaseButtonProps> = props => {
   return (
-    <button
-      className={`border-1 border-transparent body_medium_14pt flex items-center justify-center rounded-lg bg-primary400 p-[12px] text-grayscale100 hover:bg-primary200`}
-    >
-      {text}
-    </button>
+    <BaseButton
+      className={`bg-primary500 text-grayscale100 hover:bg-primary400  focus:shadow-[inset_0px_0px_0px_1px_#FD825D] active:bg-primary500 active:focus:shadow-[inset_0px_0px_0px_1px_#FD825D] disabled:bg-grayscale500`}
+      loaderClassName="fill-grayscale100"
+      {...props}
+    />
   );
 };
