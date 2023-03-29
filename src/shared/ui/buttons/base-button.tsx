@@ -13,9 +13,9 @@ export interface BaseButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>
 export const BaseButton: FC<BaseButtonProps> = ({ text, size, isLoading, className, loaderClassName, ...rest }) => {
   return (
     <button
-      className={`body_medium_14pt flex w-full items-center justify-center rounded-lg p-[12px] ${
-        size === 's' ? 'max-w-[164px]' : 'max-w-[344px]'
-      } ${className}`}
+      className={`body_medium_14pt flex h-[44px] w-full items-center justify-center rounded-lg p-[12px] disabled:cursor-not-allowed ${
+        isLoading ? 'cursor-wait' : ''
+      } ${size === 's' ? 'max-w-[164px]' : 'max-w-[344px]'} ${className}`}
       {...rest}
     >
       {isLoading ? <SvgLoadingIcon className={`animate-spin ${loaderClassName}`} /> : text}
