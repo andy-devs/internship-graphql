@@ -1,0 +1,15 @@
+fragment UserFragment on UserModel {
+  id
+  avatarUrl
+  birthDate
+  country
+  createdAt
+  deletedAt
+  email
+  firstName
+  gender
+  lastName
+  middleName
+  phone
+  updatedAt
+}
