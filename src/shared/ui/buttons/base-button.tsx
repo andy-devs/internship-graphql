@@ -15,7 +15,7 @@ export const BaseButton: FC<BaseButtonProps> = ({ text, size, isLoading, classNa
     <button
       className={`body_medium_14pt flex h-[44px] w-full items-center justify-center rounded-lg p-[12px] disabled:cursor-not-allowed ${
         isLoading ? 'cursor-wait' : ''
-      } ${size === 's' ? 'max-w-[164px]' : 'max-w-[344px]'} ${className}`}
+      } ${size === 's' ? 'xs:max-w-[164px]' : 'xs:max-w-[344px]'} ${className}`}
       {...rest}
     >
       {isLoading ? <SvgLoadingIcon className={`animate-spin ${loaderClassName}`} /> : text}

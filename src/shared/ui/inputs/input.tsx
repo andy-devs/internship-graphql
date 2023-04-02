@@ -60,8 +60,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     const hasContentAfterIcon = Boolean(contentAfterIcon);
 
     return (
-      <label className={`w-full max-w-[343px] ${isDisabled ? 'text-grayscale500' : ''}`}>
-        {hasLabel && <div className="body_medium_16pt mb-[4px]">{label}</div>}
+      <label className={`w-full xs:max-w-[343px] ${isDisabled ? 'text-grayscale500' : ''} ${className}`}>
+        {hasLabel && <div className="body_medium_16pt mb-[4px] text-grayscale800">{label}</div>}
 
         <div className="relative">
           <input

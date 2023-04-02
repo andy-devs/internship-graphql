@@ -1,10 +1,10 @@
-import { SignUpForm } from '@features/user/sign-up/ui/sign-up-form';
+import { SignUpForm } from '@features/auth/sign-up/ui/sign-up-form';
 import { AuthLayout } from '@widgets/layouts/auth-layout';
 import { FC } from 'react';
 
 interface SignUpProps {}
 
-const SignUp: FC<SignUpProps> = () => {
+const SignUpPage: FC<SignUpProps> = () => {
   return (
     <AuthLayout>
       <SignUpForm />
@@ -12,4 +12,4 @@ const SignUp: FC<SignUpProps> = () => {
   );
 };
 
-export default SignUp;
+export default SignUpPage;

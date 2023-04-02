@@ -1,4 +1,4 @@
-import { Maybe } from 'shared/types';
+import { Maybe } from '@shared/types';
 
 enum STORAGE_KEYS {
   ACCESS_TOKEN = 'access-token',

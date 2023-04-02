@@ -1,15 +1,15 @@
-import { SignInForm } from '@features/user/sign-in/ui/sign-in-form';
+import { SignIn } from '@features/auth/sign-in/sign-in';
 import { AuthLayout } from '@widgets/layouts/auth-layout';
 import { FC } from 'react';
 
 interface SignInProps {}
 
-const SignIn: FC<SignInProps> = () => {
+const SignInPage: FC<SignInProps> = () => {
   return (
     <AuthLayout>
-      <SignInForm />
+      <SignIn />
     </AuthLayout>
   );
 };
 
-export default SignIn;
+export default SignInPage;
