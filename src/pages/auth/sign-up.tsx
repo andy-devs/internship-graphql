@@ -1,4 +1,4 @@
-import { SignUpForm } from '@features/auth/sign-up/ui/sign-up-form';
+import { SignUp } from '@features/auth/sign-up/sign-up';
 import { AuthLayout } from '@widgets/layouts/auth-layout';
 import { FC } from 'react';
 
@@ -7,7 +7,7 @@ interface SignUpProps {}
 const SignUpPage: FC<SignUpProps> = () => {
   return (
     <AuthLayout>
-      <SignUpForm />
+      <SignUp />
     </AuthLayout>
   );
 };

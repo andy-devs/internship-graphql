@@ -65,7 +65,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
         <div className="relative">
           <input
-            className="body_regular_16pt w-full rounded-lg border border-solid border-transparent bg-grayscale200 py-[10px] pl-2 pr-6 caret-primary400 selection:bg-primary200 focus:border-primary400 active:border-primary400 disabled:border-transparent"
+            className={`body_regular_16pt w-full rounded-lg border border-solid border-transparent bg-grayscale200 py-[10px] pl-2 pr-6 caret-primary400 selection:bg-primary200 focus:border-primary400 active:border-primary400 disabled:border-transparent ${
+              hasError ? 'border-danger' : ''
+            }`}
             disabled={isDisabled}
             ref={ref}
             {...props}
@@ -73,7 +75,13 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           {hasContentAfterIcon && <div className="absolute bottom-[10px] right-[16px] h-3 w-3">{contentAfterIcon}</div>}
         </div>
 
-        {hasCaption && <div className={`${hasError ? 'text-danger' : 'text-grayscale400'}`}>{captionOption.text}</div>}
+        {hasCaption && (
+          <div
+            className={`caption_regular_12pt mt-[3px] leading-[22px] ${hasError ? 'text-danger' : 'text-grayscale400'}`}
+          >
+            {captionOption.text}
+          </div>
+        )}
       </label>
     );
   }

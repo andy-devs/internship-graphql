@@ -2,27 +2,29 @@ import { Toast } from '@shared/components/toast/toast';
 import { AuthService } from '@shared/services/utils/auth-service';
 import { toast } from 'react-toastify';
 
-import { useUserSignIn } from '../mutations/__generated__/user-sign-in.mutation';
+import { useUserSignUp } from '../mutations/__generated__/user-sign-up.mutation';
 
 interface FormDataType {
   email: string;
   password: string;
+  passwordConfirm: string;
 }
 
-export const useSignIn = () => {
-  const [signInAction, { loading, error }] = useUserSignIn();
+export const useSignUp = () => {
+  const [signUpAction, { loading, error }] = useUserSignUp();
 
-  const signIn = ({ email, password }: FormDataType) => {
-    signInAction({
+  const signUp = ({ email, password, passwordConfirm }: FormDataType) => {
+    signUpAction({
       variables: {
         input: {
           email: email.trim(),
           password: password.trim(),
+          passwordConfirm: passwordConfirm.trim(),
         },
       },
-      onCompleted: ({ userSignIn }) => {
-        const token = userSignIn.token;
-        const problem = userSignIn.problem;
+      onCompleted: ({ userSignUp }) => {
+        const token = userSignUp.token;
+        const problem = userSignUp.problem;
 
         if (token) {
           AuthService.initSession({ accessToken: token });
@@ -34,7 +36,7 @@ export const useSignIn = () => {
   };
 
   return {
-    signIn,
+    signUp,
     loading,
     error,
   };
