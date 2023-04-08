@@ -1,10 +1,5 @@
-import Head from 'next/head';
-import Image from 'next/image';
+import { MainLayout } from '@widgets/layouts/main-layout';
 
 export default function Home() {
-  return (
-    <>
-      <div>example page</div>
-    </>
-  );
+  return <MainLayout>children</MainLayout>;
 }

@@ -1,0 +1,40 @@
+import { Skeleton } from '@mui/material';
+import { UserFragment } from '@shared/api/user/fragments/__generated__/user.fragment';
+import Avatar from '@shared/ui/avatar/avatar';
+import { Dropdown } from '@shared/ui/dropdown/dropdown';
+import { FC } from 'react';
+
+interface UserDropdownProps {
+  isLoading?: boolean;
+  avatarUrl?: string;
+  userData?: UserFragment;
+  isMobile?: boolean;
+}
+
+export const UserProfile: FC<UserDropdownProps> = ({ userData, isLoading, isMobile }) => {
+  const text = userData?.firstName || userData?.lastName ? `${userData?.firstName} ${userData?.lastName}` : 'Профиль';
+
+  return (
+    <div className={`mr-0.5 flex items-center ${isMobile ? 'gap-2' : 'gap-0.5'}`}>
+      <Avatar url={userData?.avatarUrl} isLoading={isLoading} size={isMobile ? 'm' : 's'} />
+      <span className="body_medium_16pt whitespace-nowrap text-grayscale800">
+        {isLoading ? <Skeleton variant="text" style={{ width: '150px', height: '25px' }} /> : text}
+      </span>
+    </div>
+  );
+};
+
+const dropdownList = [
+  { text: 'Мой профиль', onClick: () => {} },
+  { text: 'Выйти', onClick: () => {} },
+];
+
+export const UserDropdown: FC<UserDropdownProps> = ({ avatarUrl, userData, isLoading }) => {
+  return (
+    <Dropdown
+      buttonContent={<UserProfile userData={userData} avatarUrl={avatarUrl} isLoading={isLoading} />}
+      dropdownList={dropdownList}
+      isLoading={isLoading}
+    />
+  );
+};

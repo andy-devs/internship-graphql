@@ -1,4 +1,4 @@
-import { useUserEditProfile } from '@entities/user/model/mutations/__generated__/user-edit-profile.mutation';
+import { useUserEditProfile } from '@shared/api/user/mutations/__generated__/user-edit-profile.mutation';
 import { Toast } from '@shared/components/toast/toast';
 import { ERROR_TEXTS } from '@shared/constants/error-texts';
 import { ROUTES } from '@shared/constants/routes';

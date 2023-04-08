@@ -1,8 +1,8 @@
 import 'react-toastify/dist/ReactToastify.min.css';
 
+import { CustomProviderProps } from '@shared/types';
 import { FC } from 'react';
 import { ToastContainer } from 'react-toastify';
-import { CustomProviderProps } from 'shared/types';
 
 export const ToasterProvider: FC<CustomProviderProps> = ({ children }) => {
   return (

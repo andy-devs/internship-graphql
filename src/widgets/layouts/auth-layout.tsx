@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 interface AuthLayoutProps {
-  children: JSX.Element[] | JSX.Element;
+  children: React.ReactNode[] | React.ReactNode;
 }
 
 export const AuthLayout: FC<AuthLayoutProps> = ({ children }) => {
