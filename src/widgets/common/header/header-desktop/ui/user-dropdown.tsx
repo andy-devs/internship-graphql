@@ -1,7 +1,11 @@
 import { Skeleton } from '@mui/material';
 import { UserFragment } from '@shared/api/user/fragments/__generated__/user.fragment';
+import { ROUTES } from '@shared/constants/routes';
+import { AuthService } from '@shared/services/utils/auth-service';
 import Avatar from '@shared/ui/avatar/avatar';
 import { Dropdown } from '@shared/ui/dropdown/dropdown';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { FC } from 'react';
 
 interface UserDropdownProps {
@@ -24,16 +28,34 @@ export const UserProfile: FC<UserDropdownProps> = ({ userData, isLoading, isMobi
   );
 };
 
-const dropdownList = [
-  { text: 'Мой профиль', onClick: () => {} },
-  { text: 'Выйти', onClick: () => {} },
+const ButtonWithRedirect = () => {
+  const router = useRouter();
+
+  return (
+    <button
+      onClick={async () => {
+        console.log('logout');
+        await AuthService.logOut();
+        await router.push(ROUTES.HOME);
+      }}
+    >
+      Выйти
+    </button>
+  );
+};
+
+const dropdownContent = [
+  <Link href={ROUTES.PROFILE} key="my-profile">
+    Мой профиль
+  </Link>,
+  <ButtonWithRedirect key="logout" />,
 ];
 
 export const UserDropdown: FC<UserDropdownProps> = ({ avatarUrl, userData, isLoading }) => {
   return (
     <Dropdown
       buttonContent={<UserProfile userData={userData} avatarUrl={avatarUrl} isLoading={isLoading} />}
-      dropdownList={dropdownList}
+      dropdownList={dropdownContent}
       isLoading={isLoading}
     />
   );

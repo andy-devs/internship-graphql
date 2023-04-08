@@ -1,3 +1,7 @@
+/* eslint-disable eslint-comments/disable-enable-pair */
+/* eslint-disable eslint-comments/no-unlimited-disable */
+/* eslint-disable */
+
 import { Skeleton } from '@mui/material';
 import { SvgClosedChevronIcon } from '@shared/icons/components/closed-chevron-icon';
 import { SvgOpenedChevronIcon } from '@shared/icons/components/opened-chevron-icon';
@@ -6,10 +10,7 @@ import { useOnClickOutside } from 'usehooks-ts';
 
 interface DropdownProps {
   buttonContent: ReactNode;
-  dropdownList: {
-    text: string;
-    onClick: () => void;
-  }[];
+  dropdownList: ReactNode[];
   isLoading?: boolean;
 }
 
@@ -37,8 +38,17 @@ export const Dropdown: FC<DropdownProps> = ({ buttonContent, dropdownList, isLoa
       {isOpen && (
         <div className="absolute mt-2 w-full rounded-lg bg-grayscale100">
           {dropdownList.map((item, index) => (
-            <div className="cursor-pointer px-[10px] py-[12px]" onClick={item.onClick} key={index}>
-              {item.text}
+            <div
+              onClick={e => {
+                setIsOpen(false);
+                // @ts-ignore
+                e.currentTarget.firstChild?.click();
+                e.stopPropagation();
+              }}
+              className="cursor-pointer px-[10px] py-[12px]"
+              key={index}
+            >
+              {item}
             </div>
           ))}
         </div>

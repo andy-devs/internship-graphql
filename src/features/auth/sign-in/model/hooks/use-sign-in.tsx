@@ -1,6 +1,8 @@
 import { Toast } from '@shared/components/toast/toast';
 import { ERROR_TEXTS } from '@shared/constants/error-texts';
+import { ROUTES } from '@shared/constants/routes';
 import { AuthService } from '@shared/services/utils/auth-service';
+import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 
 import { useUserSignIn } from '../mutations/__generated__/user-sign-in.mutation';
@@ -13,7 +15,9 @@ interface FormDataType {
 export const useSignIn = () => {
   const [signInAction, { loading, error }] = useUserSignIn();
 
-  const signIn = ({ email, password }: FormDataType) => {
+  const router = useRouter();
+
+  const signIn = async ({ email, password }: FormDataType) => {
     try {
       signInAction({
         variables: {
@@ -23,11 +27,12 @@ export const useSignIn = () => {
           },
         },
         onCompleted: ({ userSignIn }) => {
-          const token = userSignIn.token;
-          const problem = userSignIn.problem;
+          const token = userSignIn?.token;
+          const problem = userSignIn?.problem;
 
           if (token) {
             AuthService.initSession({ accessToken: token });
+            router.push(ROUTES.HOME);
           } else if (!token && problem) {
             toast(<Toast type="error" text={problem?.message} />);
           }
