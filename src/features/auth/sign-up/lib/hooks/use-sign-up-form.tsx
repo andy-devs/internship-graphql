@@ -8,15 +8,18 @@ export type SignUpFormData = {
   email: string;
   password: string;
   passwordConfirm: string;
+  firstName?: string;
+  lastName?: string;
+  middleName?: string;
 };
 
 export const useSignUpForm = () => {
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(1);
 
   const formMethods = useForm<SignUpFormData>({
-    mode: 'onChange',
+    mode: 'onTouched',
     resolver: yupResolver(schema),
   });
 
-  return { formMethods, step };
+  return { formMethods, step, setStep };
 };
