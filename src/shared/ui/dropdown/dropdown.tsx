@@ -14,12 +14,20 @@ interface DropdownProps {
   className?: string;
   buttonClassName?: string;
   isLoading?: boolean;
+  disabled?: boolean;
 }
 
-export const Dropdown: FC<DropdownProps> = ({ className, buttonContent, dropdownList, buttonClassName, isLoading }) => {
+export const Dropdown: FC<DropdownProps> = ({
+  className,
+  buttonContent,
+  dropdownList,
+  buttonClassName,
+  isLoading,
+  disabled,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleDropdown = () => setIsOpen(prev => !isLoading && !prev);
+  const toggleDropdown = () => setIsOpen(prev => !isLoading && !disabled && !prev);
 
   const dropdownRef = useRef(null);
 

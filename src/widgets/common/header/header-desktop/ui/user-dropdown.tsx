@@ -35,7 +35,8 @@ const ButtonWithRedirect = () => {
     <button
       onClick={async () => {
         await AuthService.logOut();
-        await router.push(ROUTES.SIGN_IN);
+        await router.push(ROUTES.HOME);
+        await router.reload();
       }}
     >
       Выйти

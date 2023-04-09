@@ -1,5 +1,7 @@
 import { PostModal } from '@features/post/post-modal/post-modal';
 import { usePost } from '@shared/api/post/queries/__generated__/post.query';
+import { ROUTES } from '@shared/constants/routes';
+import { StorageService } from '@shared/services/utils/storage-service';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
@@ -14,6 +16,12 @@ const PostPage = () => {
 
   useEffect(() => {
     router.prefetch('/');
+  }, []);
+
+  useEffect(() => {
+    if (!StorageService.isAuthorized()) {
+      router.replace(ROUTES.HOME);
+    }
   }, []);
 
   return <PostModal post={post} isLoading={loading} />;

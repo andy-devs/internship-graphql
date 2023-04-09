@@ -19,12 +19,9 @@ export const PostsList: FC<PostsListProps> = () => {
 
   const isFirstRender = useIsFirstRender();
 
-  const { data, refetch, loading, networkStatus, fetchMore } = usePosts({
+  const { data, refetch, networkStatus, fetchMore } = usePosts({
     variables: { input: { type: sort, limit: 2 } },
     notifyOnNetworkStatusChange: true,
-    onError(error) {
-      toast(<Toast text={parseError(error)} type="error" />);
-    },
   });
 
   const isPostsLoading =
@@ -59,7 +56,7 @@ export const PostsList: FC<PostsListProps> = () => {
         loader={<PostCardSkeleton />}
         endMessage={
           <p style={{ textAlign: 'center' }}>
-            <b>Посты закончились</b>
+            <b>Посты закончились или вы не авторизованы</b>
           </p>
         }
       >

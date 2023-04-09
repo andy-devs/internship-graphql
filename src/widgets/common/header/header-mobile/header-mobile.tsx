@@ -73,7 +73,7 @@ export const HeaderMobile: FC<HeaderMobileProps> = ({ userData, isLoading }) => 
       </div>
       {isOpen && (
         <div className="mt-[20px] flex min-h-[calc(100vh_-_83px)] w-full flex-col items-start px-2">
-          {StorageService.isAuthorized() && <UserProfile isMobile userData={userData} isLoading={isLoading} />}
+          <UserProfile isMobile userData={userData} isLoading={isLoading} />
           <nav className="mt-[20px] w-full">
             {!StorageService.isAuthorized() && (
               <Link
@@ -98,7 +98,8 @@ export const HeaderMobile: FC<HeaderMobileProps> = ({ userData, isLoading }) => 
                 className="body_regular_14pt block w-full border-b border-solid border-grayscale200 py-[18px] text-left dark:border-[#373737]"
                 onClick={async () => {
                   await AuthService.logOut();
-                  await router.push(ROUTES.SIGN_IN);
+                  await router.push(ROUTES.HOME);
+                  await router.reload();
                   setIsOpen(false);
                 }}
               >

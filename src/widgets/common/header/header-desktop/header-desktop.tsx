@@ -2,7 +2,7 @@ import { ThemeToggle } from '@shared/components/theme-toggle/theme-toggle';
 import { ROUTES } from '@shared/constants/routes';
 import { SvgLogo } from '@shared/icons/components/logo';
 import { StorageService } from '@shared/services/utils/storage-service';
-import { PrimaryButton } from '@shared/ui/buttons/primary-button';
+import { SecondaryButton } from '@shared/ui/buttons/secondary-button';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
@@ -25,8 +25,8 @@ export const HeaderDesktop: FC<HeaderDesktopProps> = ({ userData, isLoading }) =
             key={href}
             className={`${
               router.pathname === href
-                ? 'body_semibold_16pt whitespace-nowrap text-grayscale800 hover:text-primary500 dark:text-grayscale200'
-                : 'body_regular_16pt whitespace-nowrap text-grayscale500 hover:text-primary500 dark:text-grayscale600'
+                ? 'body_semibold_16pt whitespace-nowrap text-grayscale800 hover:text-primary500 dark:text-grayscale200 dark:hover:text-primary500'
+                : 'body_regular_16pt whitespace-nowrap text-grayscale500 hover:text-primary500 dark:text-grayscale600 dark:hover:text-primary500'
             } `}
           >
             {text}
@@ -41,7 +41,7 @@ export const HeaderDesktop: FC<HeaderDesktopProps> = ({ userData, isLoading }) =
           <UserDropdown userData={userData} />
         ) : (
           <Link href={ROUTES.SIGN_IN}>
-            <PrimaryButton className="min-w-[130px]" text="Войти в аккаунт" />
+            <SecondaryButton className="min-w-[130px]" text="Войти в аккаунт" />
           </Link>
         )}
       </div>

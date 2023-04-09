@@ -7,9 +7,9 @@ interface MainLayoutProps {
 
 export const MainLayout: FC<MainLayoutProps> = ({ children }) => {
   return (
-    <div className="relative">
+    <div className="relative h-full">
       <Header />
-      <main className="py-3 px-2">
+      <main className="h-full py-3 px-2">
         <>{children}</>
       </main>
     </div>
