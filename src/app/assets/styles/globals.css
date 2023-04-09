@@ -84,3 +84,7 @@
     letter-spacing: 0.01em;
   }
 }
+
+.infinite-scroll-component__outerdiv {
+  width: 100%;
+}

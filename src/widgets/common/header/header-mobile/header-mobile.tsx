@@ -22,7 +22,7 @@ export const HeaderMobile: FC<HeaderMobileProps> = ({ userData, isLoading }) => 
 
   return (
     <header
-      className={`absolute top-0 flex w-full flex-col items-center justify-start bg-grayscale100 md:hidden ${
+      className={`absolute top-0 z-40 flex w-full flex-col items-center justify-start bg-grayscale100 md:hidden ${
         isOpen ? 'min-h-screen' : 'min-h-[64px]'
       }`}
     >

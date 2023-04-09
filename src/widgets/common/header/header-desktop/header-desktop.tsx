@@ -17,21 +17,23 @@ export const HeaderDesktop: FC<HeaderDesktopProps> = ({ userData, isLoading }) =
 
   return (
     <header className="hidden min-h-[64px] w-full items-center justify-between bg-grayscale100 px-[12px] md:flex lg:px-[48px]">
-      <SvgLogo className="min-w-[144px]" />
-      <nav className={`mx-4 flex w-full max-w-[420px] flex-row items-center justify-between`}>
+      <SvgLogo className="min-w-[144px] flex-1" />
+      <nav className={`mx-4 flex w-full max-w-[420px] flex-1 flex-row items-center justify-between gap-2`}>
         {navLinks.map(({ href, text }) => (
           <Link
             href={href}
             key={href}
             className={`${
-              router.pathname === href ? 'body_semibold_16pt text-grayscale800' : 'body_regular_16pt text-grayscale500'
+              router.pathname === href
+                ? 'body_semibold_16pt text-grayscale800'
+                : 'body_regular_16pt whitespace-nowrap text-grayscale500'
             }`}
           >
             {text}
           </Link>
         ))}
       </nav>
-      <div className="flex flex-row items-center gap-2 lg:gap-[40px]">
+      <div className="ml-auto flex flex-1 flex-row items-center justify-end gap-2 lg:gap-[40px]">
         <Toggle />
         {isLoading ? (
           <UserDropdown isLoading={isLoading} />

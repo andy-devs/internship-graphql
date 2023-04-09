@@ -1,14 +1,26 @@
 import { InMemoryCacheConfig } from '@apollo/client';
-
-import { customMerge } from './helpers';
+import unionBy from 'lodash/unionBy';
 
 export const cacheOptions: InMemoryCacheConfig = {
   typePolicies: {
     Query: {
       fields: {
-        searchOrganizations: {
-          keyArgs: ['items', ['id'], 'page', 'perPage'],
-          merge: customMerge,
+        posts: {
+          keyArgs: ['data', ['id'], 'pageInfo', ['afterCursor', 'count', 'perPage']],
+          merge: (existing: any, incoming: any, { args }: any) => {
+            const incomingResult = incoming ? incoming.data : [];
+            const existingResult = existing ? existing.data : [];
+
+            if (args) {
+              const resultPagination = unionBy(existingResult, incomingResult, '__ref');
+
+              return {
+                ...incoming,
+                data: resultPagination,
+              };
+            }
+            return incoming;
+          },
         },
       },
     },
