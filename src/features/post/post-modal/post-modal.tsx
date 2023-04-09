@@ -21,9 +21,10 @@ export const PostModal: FC<PostModalProps> = ({ post, isLoading }) => {
 
   const [isOpen, setIsOpen] = useState(true);
 
-  const { theme } = useTheme();
+  const { theme, systemTheme } = useTheme();
+  const currentTheme = theme === 'system' ? systemTheme : theme;
 
-  const isDarkTheme = theme === 'dark';
+  const isDarkTheme = currentTheme === 'dark';
 
   const closeModal = () => setIsOpen(true);
 

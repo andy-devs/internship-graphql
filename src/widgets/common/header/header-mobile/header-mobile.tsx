@@ -22,9 +22,10 @@ export const HeaderMobile: FC<HeaderMobileProps> = ({ userData, isLoading }) => 
   const currentRoute = router.pathname as string;
   const currentRouteName = ROUTE_NAMES[currentRoute];
 
-  const { theme } = useTheme();
+  const { theme, systemTheme } = useTheme();
+  const currentTheme = theme === 'system' ? systemTheme : theme;
 
-  const isDarkTheme = theme === 'dark';
+  const isDarkTheme = currentTheme === 'dark';
 
   const [isOpen, setIsOpen] = useState(false);
 
