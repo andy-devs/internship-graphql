@@ -35,7 +35,7 @@ const ButtonWithRedirect = () => {
     <button
       onClick={async () => {
         await AuthService.logOut();
-        await router.push(ROUTES.HOME);
+        await router.push(ROUTES.SIGN_IN);
       }}
     >
       Выйти
@@ -53,6 +53,7 @@ const dropdownContent = [
 export const UserDropdown: FC<UserDropdownProps> = ({ avatarUrl, userData, isLoading }) => {
   return (
     <Dropdown
+      buttonClassName="min-w-[150px] flex justify-center"
       buttonContent={<UserProfile userData={userData} avatarUrl={avatarUrl} isLoading={isLoading} />}
       dropdownList={dropdownContent}
       isLoading={isLoading}

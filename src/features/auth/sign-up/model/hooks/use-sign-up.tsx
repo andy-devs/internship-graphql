@@ -58,7 +58,7 @@ export const useSignUp = () => {
         },
       });
     } catch (e) {
-      toast(<Toast text={ERROR_TEXTS.unknownError} />);
+      toast(<Toast text={ERROR_TEXTS.unknownError} type="error" />);
     }
   };
 

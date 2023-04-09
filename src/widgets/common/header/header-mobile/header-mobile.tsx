@@ -2,6 +2,7 @@ import { ROUTE_NAMES, ROUTES } from '@shared/constants/routes';
 import { SvgCloseIcon } from '@shared/icons/components/close-icon';
 import { SvgLogo } from '@shared/icons/components/logo';
 import { SvgMenuIcon } from '@shared/icons/components/menu-icon';
+import { AuthService } from '@shared/services/utils/auth-service';
 import { StorageService } from '@shared/services/utils/storage-service';
 import { Toggle } from '@shared/ui/toggle/toggle';
 import Link from 'next/link';
@@ -56,7 +57,14 @@ export const HeaderMobile: FC<HeaderMobileProps> = ({ userData, isLoading }) => 
                 </Link>
               ))}
             {StorageService.isAuthorized() && (
-              <button className="body_regular_14pt block w-full border-b border-solid border-grayscale200 py-[18px] text-left">
+              <button
+                className="body_regular_14pt block w-full border-b border-solid border-grayscale200 py-[18px] text-left"
+                onClick={async () => {
+                  await AuthService.logOut();
+                  await router.push(ROUTES.SIGN_IN);
+                  setIsOpen(false);
+                }}
+              >
                 Выйти
               </button>
             )}

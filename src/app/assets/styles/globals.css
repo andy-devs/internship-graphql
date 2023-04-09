@@ -88,3 +88,12 @@
 .infinite-scroll-component__outerdiv {
   width: 100%;
 }
+
+.ReactModal__Content::-webkit-scrollbar {
+  width: 0px; /* width of the entire scrollbar */
+}
+.ReactModal__Content::-webkit-scrollbar-track {
+  background: transparent; /* color of the tracking area */
+}
+.ReactModal__Content::-webkit-scrollbar-thumb {
+}

@@ -23,7 +23,7 @@ export const PostsList: FC<PostsListProps> = () => {
     variables: { input: { type: sort, limit: 2 } },
     notifyOnNetworkStatusChange: true,
     onError(error) {
-      toast(<Toast text={parseError(error)} />);
+      toast(<Toast text={parseError(error)} type="error" />);
     },
   });
 
@@ -33,8 +33,6 @@ export const PostsList: FC<PostsListProps> = () => {
     networkStatus === NetworkStatus.refetch;
 
   const isDropdownLoading = networkStatus === NetworkStatus.loading || networkStatus === NetworkStatus.setVariables;
-
-  const isPostsFetchMore = networkStatus === NetworkStatus.fetchMore;
 
   useEffect(() => {
     if (!isFirstRender) {
@@ -71,7 +69,7 @@ export const PostsList: FC<PostsListProps> = () => {
             <PostCardSkeleton />
           </>
         ) : (
-          posts?.map(post => <PostCard key={post.id} {...post} />)
+          posts?.map(post => <PostCard key={post.id} post={post} />)
         )}
       </InfiniteScroll>
     </div>

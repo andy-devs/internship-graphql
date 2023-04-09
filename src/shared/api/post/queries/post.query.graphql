@@ -1,0 +1,5 @@
+query Post($input: PostIdRequest!) {
+  post(input: $input) {
+    ...PostFragment
+  }
+}

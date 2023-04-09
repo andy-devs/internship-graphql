@@ -4,7 +4,7 @@ import { FC } from 'react';
 
 export const PostCardSkeleton: FC = () => {
   return (
-    <article className="mb-5 w-full max-w-[743px] rounded-[20px]">
+    <article className="mb-5 w-full max-w-[743px] rounded-[20px] px-2 py-3 sm:px-5 ">
       <header className="mb-[20px] flex items-start gap-[12px] sm:mb-3">
         <Avatar isLoading />
         <div className="mt-[-5px] flex flex-col justify-start">
