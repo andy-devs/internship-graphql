@@ -6,6 +6,16 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+@layer base {
+  body {
+    @apply bg-grayscale300 dark:bg-grayscale800;
+  }
+}
+
 @layer components {
   /* This won't be included in your compiled CSS unless you actually use it */
   .title_bold_24pt {

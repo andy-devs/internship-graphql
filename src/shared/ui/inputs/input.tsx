@@ -61,12 +61,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
     return (
       <label className={`w-full xs:max-w-[343px] ${isDisabled ? 'text-grayscale500' : ''} ${className}`}>
-        {hasLabel && <div className="body_medium_16pt mb-[4px] text-grayscale800">{label}</div>}
+        {hasLabel && <div className="body_medium_16pt mb-[4px] text-grayscale800 dark:text-grayscale200">{label}</div>}
 
         <div className="relative">
           <input
-            className={`body_regular_16pt w-full rounded-lg border border-solid  bg-grayscale200 py-[10px] pl-2 pr-6 caret-primary400 selection:bg-primary200 focus:border-primary400 active:border-primary400 disabled:border-transparent ${
-              hasError ? 'border-danger' : 'border-transparent'
+            className={`body_regular_16pt w-full rounded-lg border border-solid bg-grayscale200 py-[10px]  pl-2 pr-6 caret-primary400 selection:bg-primary200 focus:border-primary400 active:border-primary400 disabled:border-transparent dark:bg-grayscale700 ${
+              hasError ? 'border-danger' : 'border-transparent dark:border-grayscale600'
             }`}
             disabled={isDisabled}
             ref={ref}

@@ -21,7 +21,7 @@ export const UserProfile: FC<UserDropdownProps> = ({ userData, isLoading, isMobi
   return (
     <div className={`mr-0.5 flex items-center ${isMobile ? 'gap-2' : 'gap-0.5'}`}>
       <Avatar url={userData?.avatarUrl} isLoading={isLoading} size={isMobile ? 'm' : 's'} />
-      <span className="body_medium_16pt overflow-hidden text-ellipsis whitespace-nowrap text-grayscale800 md:max-w-[170px] lg:max-w-[250px]">
+      <span className="body_medium_16pt overflow-hidden text-ellipsis whitespace-nowrap text-grayscale800 dark:text-grayscale200 md:max-w-[170px] lg:max-w-[250px]">
         {isLoading ? <Skeleton variant="text" style={{ width: '150px', height: '25px' }} /> : text}
       </span>
     </div>

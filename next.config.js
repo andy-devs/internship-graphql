@@ -15,6 +15,25 @@ const nextConfig = {
   images: {
     domains: ['internship-social-media-files.s3.us-east-1.amazonaws.com'],
   },
+  async redirects() {
+    return [
+      {
+        source: '/profile',
+        destination: '/',
+        permanent: false,
+      },
+      {
+        source: '/my-posts',
+        destination: '/',
+        permanent: false,
+      },
+      {
+        source: '/favorites',
+        destination: '/',
+        permanent: false,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;

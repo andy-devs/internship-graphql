@@ -22,14 +22,20 @@ export const PasswordInput = forwardRef<HTMLInputElement, Props>((props, ref) =>
       contentAfter={
         isPasswordVisible ? (
           <IconButton
-            onClick={togglePasswordVisibility}
+            onClick={e => {
+              togglePasswordVisibility();
+              e.stopPropagation();
+            }}
             disabled={props.isDisabled}
             icon={<SvgEyeIcon />}
             className="stroke-grayscale400"
           />
         ) : (
           <IconButton
-            onClick={togglePasswordVisibility}
+            onClick={e => {
+              togglePasswordVisibility();
+              e.stopPropagation();
+            }}
             disabled={props.isDisabled}
             icon={<SvgEyeSlashIcon />}
             className="stroke-grayscale400"

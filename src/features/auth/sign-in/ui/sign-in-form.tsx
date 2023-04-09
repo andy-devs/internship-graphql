@@ -16,7 +16,9 @@ export const SignInForm: FC<SignInFormProps> = ({ onSubmit, isSubmitting }) => {
 
   return (
     <AuthFormCard>
-      <p className="body_regular_16pt mb-3 text-grayscale400">Введите Ваш Email и пароль, чтобы войти в аккаунт.</p>
+      <p className="body_regular_16pt mb-3 text-grayscale400 dark:text-grayscale500">
+        Введите Ваш Email и пароль, чтобы войти в аккаунт.
+      </p>
       <form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-1 flex-col items-center">
         <Input label="Email" className="mb-3" {...register('email')} errorText={errors?.email?.message} />
         <PasswordInput

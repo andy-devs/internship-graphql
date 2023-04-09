@@ -22,25 +22,29 @@ export const PostCard: FC<PostCardProps> = ({ post, isDetailPage = false, onClos
   return (
     <article
       className={`w-full max-w-[743px] rounded-[20px] px-2 py-3 sm:px-5 ${
-        isDetailPage ? '' : 'mb-1 bg-grayscale100 sm:mb-3'
+        isDetailPage ? '' : 'mb-1 bg-grayscale100 dark:bg-grayscale700 sm:mb-3'
       }`}
     >
       <header className="mb-[20px] flex items-center justify-between sm:mb-3">
         <div className="flex gap-[12px]">
           <Avatar url={post?.author?.avatarUrl} />
           <div className="flex flex-col justify-between">
-            <div className="body_medium_16pt text-grayscale900">
+            <div className="body_medium_16pt text-grayscale900 dark:text-grayscale200">
               {!post?.author?.firstName && !post?.author?.lastName
                 ? 'Пользователь'
                 : `${post?.author?.firstName} ${post?.author?.lastName}`}
             </div>
-            <div className="body_regular_14pt text-grayscale400">{dayjs(post?.createdAt).format('DD.MM.YYYY')}</div>
+            <div className="body_regular_14pt text-grayscale400 dark:text-grayscale600">
+              {dayjs(post?.createdAt).format('DD.MM.YYYY')}
+            </div>
           </div>
         </div>
         {isDetailPage && <IconButton onClick={onCloseCallback} icon={<SvgCloseIcon />} />}
       </header>
       <div>
-        <h2 className="body_semibold_16pt sm:title_semibold_18pt mb-[12px] text-grayscale900 sm:mb-2">{post?.title}</h2>
+        <h2 className="body_semibold_16pt sm:title_semibold_18pt mb-[12px] text-grayscale900 dark:text-grayscale200 sm:mb-2">
+          {post?.title}
+        </h2>
         <Image
           quality={90}
           src={post?.mediaUrl as string}
@@ -50,7 +54,11 @@ export const PostCard: FC<PostCardProps> = ({ post, isDetailPage = false, onClos
           className="mb-2 max-h-[336px] w-full max-w-[663px] rounded-[18px] object-cover"
         />
       </div>
-      <p className={`body_regular_16pt text-grayscale600 ${isDetailPage ? '' : 'line-clamp-2 sm:line-clamp-3'}`}>
+      <p
+        className={`body_regular_16pt text-grayscale600 dark:text-grayscale500 ${
+          isDetailPage ? '' : 'line-clamp-2 sm:line-clamp-3'
+        }`}
+      >
         {post?.description}
       </p>
       {!isDetailPage && (
@@ -59,7 +67,7 @@ export const PostCard: FC<PostCardProps> = ({ post, isDetailPage = false, onClos
           as={`/posts/${post?.id}`}
           shallow
           scroll={false}
-          className="body_regular_16pt ] text-primary400 hover:text-primary500 focus:text-primary600 "
+          className="body_regular_16pt ] text-primary400 hover:text-primary500 focus:text-primary600 dark:text-primary600 dark:hover:text-primary500 dark:focus:text-primary400"
         >
           Читать больше
         </Link>

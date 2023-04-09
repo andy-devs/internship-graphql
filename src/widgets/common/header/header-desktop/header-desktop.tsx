@@ -1,8 +1,8 @@
+import { ThemeToggle } from '@shared/components/theme-toggle/theme-toggle';
 import { ROUTES } from '@shared/constants/routes';
 import { SvgLogo } from '@shared/icons/components/logo';
 import { StorageService } from '@shared/services/utils/storage-service';
 import { PrimaryButton } from '@shared/ui/buttons/primary-button';
-import { Toggle } from '@shared/ui/toggle/toggle';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
@@ -16,7 +16,7 @@ export const HeaderDesktop: FC<HeaderDesktopProps> = ({ userData, isLoading }) =
   const router = useRouter();
 
   return (
-    <header className="hidden min-h-[64px] w-full items-center justify-between bg-grayscale100 px-[12px] md:flex lg:px-[48px]">
+    <header className="sticky top-[-1px] z-[45] hidden min-h-[64px] w-full items-center justify-between bg-grayscale100 px-[12px] dark:bg-grayscale700 md:flex lg:px-[48px]">
       <SvgLogo className="min-w-[144px] flex-1" />
       <nav className={`mx-4 flex w-full max-w-[420px] flex-1 flex-row items-center justify-between gap-2`}>
         {navLinks.map(({ href, text }) => (
@@ -25,16 +25,16 @@ export const HeaderDesktop: FC<HeaderDesktopProps> = ({ userData, isLoading }) =
             key={href}
             className={`${
               router.pathname === href
-                ? 'body_semibold_16pt text-grayscale800'
-                : 'body_regular_16pt whitespace-nowrap text-grayscale500'
-            }`}
+                ? 'body_semibold_16pt whitespace-nowrap text-grayscale800 hover:text-primary500 dark:text-grayscale200'
+                : 'body_regular_16pt whitespace-nowrap text-grayscale500 hover:text-primary500 dark:text-grayscale600'
+            } `}
           >
             {text}
           </Link>
         ))}
       </nav>
       <div className="ml-auto flex flex-1 flex-row items-center justify-end gap-2 lg:gap-[40px]">
-        <Toggle />
+        <ThemeToggle />
         {isLoading ? (
           <UserDropdown isLoading={isLoading} />
         ) : StorageService.isAuthorized() ? (

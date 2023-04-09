@@ -14,7 +14,7 @@ export const useSignInForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<SignInFormData>({
-    mode: 'onChange',
+    mode: 'onTouched',
     resolver: yupResolver(schema),
   });
 

@@ -37,7 +37,7 @@ export const PostsListSort: FC<PostsListSortProps> = ({ sort, setSort, isLoading
     <Dropdown
       isLoading={isLoading}
       buttonClassName="justify-center sm:justify-start"
-      className="mb-2 w-full rounded-lg bg-grayscale100 py-[12px] text-center sm:w-auto sm:min-w-[100px] sm:self-start sm:rounded-none sm:bg-transparent sm:py-0"
+      className="mb-2 w-full rounded-lg bg-grayscale100 py-[12px] text-center dark:bg-grayscale700 sm:w-auto sm:min-w-[100px] sm:self-start sm:rounded-none sm:bg-transparent sm:py-0 dark:sm:bg-transparent"
       buttonContent={text}
       dropdownList={dropdownList}
     />

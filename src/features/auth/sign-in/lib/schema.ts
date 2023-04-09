@@ -8,6 +8,6 @@ export const schema = yup
       .string()
       .required(ERROR_TEXTS.required)
       .test('email', ERROR_TEXTS.email, value => !!value && isEmail(value)),
-    password: yup.string().required(ERROR_TEXTS.required),
+    password: yup.string().required(ERROR_TEXTS.required).min(4, `${ERROR_TEXTS.minLength} 4`),
   })
   .required();
