@@ -108,7 +108,7 @@ export const HeaderMobile: FC<HeaderMobileProps> = ({ userData, isLoading }) => 
               </button>
             )}
           </nav>
-          <div className="mb-2 mt-auto flex w-full items-center border-t border-solid border-t-transparent py-[16px] dark:border-t-[#373737]">
+          <div className="mb-[65px] mt-auto flex w-full items-center border-t border-solid border-t-transparent py-[16px] dark:border-t-[#373737]">
             <span className="body_regular_16pt mr-2 text-grayscale400 dark:text-grayscale600">
               {isDarkTheme ? 'Темная тема' : 'Светлая тема'}
             </span>
