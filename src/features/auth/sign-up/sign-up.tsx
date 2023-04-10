@@ -6,7 +6,7 @@ import { SignUpForm } from './ui/sign-up-form';
 interface SignUpProps {}
 
 export const SignUp: FC<SignUpProps> = () => {
-  const { signUp, loading, error } = useSignUp();
+  const { signUp, loading, error, step, setStep } = useSignUp();
 
-  return <SignUpForm isSubmitting={loading} onSubmit={signUp} />;
+  return <SignUpForm isSubmitting={loading} onSubmit={signUp} step={step} setStep={setStep} />;
 };

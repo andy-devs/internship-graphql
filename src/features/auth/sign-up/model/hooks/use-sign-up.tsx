@@ -1,9 +1,9 @@
 import { useUserEditProfile } from '@shared/api/user/mutations/__generated__/user-edit-profile.mutation';
 import { Toast } from '@shared/components/toast/toast';
-import { ERROR_TEXTS } from '@shared/constants/error-texts';
 import { ROUTES } from '@shared/constants/routes';
 import { AuthService } from '@shared/services/utils/auth-service';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { SignUpFormData } from '../../lib/hooks/use-sign-up-form';
@@ -11,6 +11,8 @@ import { useUserSignUp } from '../mutations/__generated__/user-sign-up.mutation'
 
 export const useSignUp = () => {
   const [signUpAction, { loading: isSigningUp, error: signUpError }] = useUserSignUp();
+  const [step, setStep] = useState(1);
+
   const [updateProfileAction, { loading: isUpdatingProfile, error: updateProfileError }] = useUserEditProfile();
 
   const router = useRouter();
@@ -32,6 +34,7 @@ export const useSignUp = () => {
           if (token) {
             AuthService.initSession({ accessToken: token });
           } else if (!token && problem) {
+            setStep(1);
             toast(<Toast type="error" text={problem?.message} />);
           }
         },
@@ -58,7 +61,7 @@ export const useSignUp = () => {
         },
       });
     } catch (e) {
-      toast(<Toast text={ERROR_TEXTS.unknownError} type="error" />);
+      console.log(e);
     }
   };
 
@@ -66,5 +69,7 @@ export const useSignUp = () => {
     signUp,
     loading: isSigningUp || isUpdatingProfile,
     error: Boolean(signUpError || updateProfileError),
+    step,
+    setStep,
   };
 };

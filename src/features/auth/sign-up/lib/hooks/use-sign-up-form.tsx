@@ -1,5 +1,4 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { schema } from '../schema';
@@ -14,12 +13,10 @@ export type SignUpFormData = {
 };
 
 export const useSignUpForm = () => {
-  const [step, setStep] = useState(1);
-
   const formMethods = useForm<SignUpFormData>({
     mode: 'onTouched',
     resolver: yupResolver(schema),
   });
 
-  return { formMethods, step, setStep };
+  return { formMethods };
 };

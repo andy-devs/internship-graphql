@@ -9,10 +9,12 @@ import { SecondStepSignUp } from './second-step-sign-up';
 interface SignUpFormProps {
   isSubmitting: boolean;
   onSubmit: ({ email, password, passwordConfirm, firstName, lastName, middleName }: SignUpFormData) => void;
+  step: number;
+  setStep: (step: number) => void;
 }
 
-export const SignUpForm: FC<SignUpFormProps> = ({ onSubmit, isSubmitting }) => {
-  const { formMethods, step, setStep } = useSignUpForm();
+export const SignUpForm: FC<SignUpFormProps> = ({ onSubmit, isSubmitting, step, setStep }) => {
+  const { formMethods } = useSignUpForm();
 
   return (
     <FormProvider {...formMethods}>
