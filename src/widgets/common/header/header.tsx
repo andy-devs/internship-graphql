@@ -1,6 +1,7 @@
 import { UserFragment } from '@shared/api/user/fragments/__generated__/user.fragment';
 import { useUserMe } from '@shared/api/user/queries/__generated__/user-me.query';
 import { ROUTES } from '@shared/constants/routes';
+import { useRouter } from 'next/router';
 import { FC } from 'react';
 
 import { HeaderDesktop } from './header-desktop/header-desktop';
@@ -40,6 +41,7 @@ export const mobileNavLinks = [
 ];
 
 export const Header: FC = () => {
+  const router = useRouter();
   const { data, loading, error } = useUserMe();
 
   const userData = data?.userMe;
