@@ -1,7 +1,7 @@
 import { NetworkStatus } from '@apollo/client';
 import { PostCard } from '@entities/post/ui/post-card';
 import { PostCardSkeleton } from '@entities/post/ui/post-card-skeleton';
-import { useFavouritePosts } from '@shared/api/post/queries/__generated__/favourite-posts';
+import { useMyPosts } from '@shared/api/post/queries/__generated__/my-posts.query';
 import { Toast } from '@shared/components/toast/toast';
 import { ROUTES } from '@shared/constants/routes';
 import { SvgFavouritePostsEmpty } from '@shared/icons/components/favourite-posts-empty';
@@ -12,10 +12,12 @@ import { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { toast } from 'react-toastify';
 
+import { CreatePostRow } from '../create-post-row/create-post-row';
+
 interface PostsListProps {}
 
-export const FavouritePostsList: FC<PostsListProps> = () => {
-  const { data, networkStatus, fetchMore } = useFavouritePosts({
+export const MyPostsList: FC<PostsListProps> = () => {
+  const { data, networkStatus, fetchMore } = useMyPosts({
     variables: { input: { limit: 2 } },
     notifyOnNetworkStatusChange: true,
   });
@@ -25,11 +27,12 @@ export const FavouritePostsList: FC<PostsListProps> = () => {
     networkStatus === NetworkStatus.setVariables ||
     networkStatus === NetworkStatus.refetch;
 
-  const posts = data?.favouritePosts.data;
-  const pageInfo = data?.favouritePosts?.pageInfo;
+  const posts = data?.myPosts.data;
+  const pageInfo = data?.myPosts?.pageInfo;
 
   return (
     <div className="mx-auto flex h-full max-w-[743px] flex-col items-center">
+      {<CreatePostRow />}
       <InfiniteScroll
         className="w-full max-w-[743px]"
         dataLength={posts?.length || 0}
@@ -48,14 +51,14 @@ export const FavouritePostsList: FC<PostsListProps> = () => {
             <PostCardSkeleton />
           </>
         ) : (
-          posts?.map(post => <PostCard key={post.id} post={post} />)
+          posts?.map(post => <PostCard isMyPost key={post.id} post={post} />)
         )}
         {posts?.length === 0 && (
           <div className="align-center flex h-full flex-col items-center justify-center">
             <SvgFavouritePostsEmpty />
-            <p className="mt-[4px] mb-2">У Вас пока нет избранных постов</p>
-            <Link href={ROUTES.HOME} className="w-full max-w-[164px]">
-              <PrimaryButton text="На главную" />
+            <p className="mt-[4px] mb-2">У вас пока нет ни одного поста</p>
+            <Link href={ROUTES.CREATE_POST} className="w-full max-w-[164px]">
+              <PrimaryButton text="Создать пост" />
             </Link>
           </div>
         )}

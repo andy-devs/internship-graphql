@@ -3,6 +3,8 @@ import { usePostUnlike } from '@features/post/post-unlike/post-unlike';
 import { useSharePostLinkModal } from '@features/post/share-post-link/lib/use-share-post-link-modal';
 import { PostFragment } from '@shared/api/post/fragments/__generated__/post.fragment';
 import { SvgCloseIcon } from '@shared/icons/components/close-icon';
+import { SvgDeleteIcon } from '@shared/icons/components/delete-icon';
+import { SvgEditIcon } from '@shared/icons/components/edit-icon';
 import { SvgFilledHeartIcon } from '@shared/icons/components/filled-heart-icon';
 import { SvgShareIcon } from '@shared/icons/components/share-icon';
 import { SvgStokeHeartIcon } from '@shared/icons/components/stoke-heart-icon';
@@ -11,16 +13,20 @@ import { IconButton } from '@shared/ui/buttons/icon-button';
 import dayjs from 'dayjs';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { FC } from 'react';
 
 interface PostCardProps {
   post?: PostFragment;
   isDetailPage?: boolean;
+  isMyPost?: boolean;
   onCloseCallback?: () => void;
 }
 
-export const PostCard: FC<PostCardProps> = ({ post, isDetailPage = false, onCloseCallback }) => {
+export const PostCard: FC<PostCardProps> = ({ post, isDetailPage, isMyPost, onCloseCallback }) => {
   const { showShareLinkModal } = useSharePostLinkModal();
+
+  const { route } = useRouter();
 
   const { postLike } = usePostLike();
   const { postUnlike } = usePostUnlike();
@@ -46,6 +52,13 @@ export const PostCard: FC<PostCardProps> = ({ post, isDetailPage = false, onClos
           </div>
         </div>
         {isDetailPage && <IconButton onClick={onCloseCallback} icon={<SvgCloseIcon />} />}
+        {isMyPost && (
+          <div className="hidden gap-3 sm:flex">
+            <IconButton icon={<SvgShareIcon />} onClick={() => showShareLinkModal(post?.id)} />
+            <IconButton icon={<SvgDeleteIcon />} />
+            <IconButton icon={<SvgEditIcon />} />
+          </div>
+        )}
       </header>
       <div>
         <h2 className="body_semibold_16pt sm:title_semibold_18pt mb-[12px] text-grayscale900 dark:text-grayscale200 sm:mb-2">
@@ -69,7 +82,7 @@ export const PostCard: FC<PostCardProps> = ({ post, isDetailPage = false, onClos
       </p>
       {!isDetailPage && (
         <Link
-          href={`/?postId=${post?.id}`}
+          href={`${route}?postId=${post?.id}`}
           as={`/posts/${post?.id}`}
           shallow
           scroll={false}
@@ -78,19 +91,27 @@ export const PostCard: FC<PostCardProps> = ({ post, isDetailPage = false, onClos
           Читать больше
         </Link>
       )}
-      <div className="mt-[20px] sm:mt-2">
-        {post?.isLiked ? (
-          <IconButton
-            icon={<SvgFilledHeartIcon />}
-            className="mr-2 !stroke-[#F03E3E]"
-            onClick={() => postUnlike(post?.id || '')}
-          />
-        ) : (
-          <IconButton icon={<SvgStokeHeartIcon />} className="mr-2" onClick={() => postLike(post?.id || '')} />
-        )}
+      {isMyPost ? (
+        <div className="mt-[20px] flex gap-1.5 sm:mt-2 sm:hidden">
+          <IconButton icon={<SvgShareIcon />} onClick={() => showShareLinkModal(post?.id)} />
+          <IconButton icon={<SvgDeleteIcon />} />
+          <IconButton icon={<SvgEditIcon />} />
+        </div>
+      ) : (
+        <div className="mt-[20px] sm:mt-2">
+          {post?.isLiked ? (
+            <IconButton
+              icon={<SvgFilledHeartIcon />}
+              className="mr-2 !stroke-[#F03E3E]"
+              onClick={() => postUnlike(post?.id || '')}
+            />
+          ) : (
+            <IconButton icon={<SvgStokeHeartIcon />} className="mr-2" onClick={() => postLike(post?.id || '')} />
+          )}
 
-        <IconButton icon={<SvgShareIcon />} onClick={() => showShareLinkModal(post?.id)} />
-      </div>
+          <IconButton icon={<SvgShareIcon />} onClick={() => showShareLinkModal(post?.id)} />
+        </div>
+      )}
     </article>
   );
 };

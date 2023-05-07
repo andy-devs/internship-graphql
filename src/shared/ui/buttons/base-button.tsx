@@ -1,8 +1,8 @@
 import { SvgLoadingIcon } from '@shared/icons/components/loading-icon';
-import { ButtonHTMLAttributes, FC } from 'react';
+import { ButtonHTMLAttributes, FC, ReactNode } from 'react';
 
 export interface BaseButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  text?: string;
+  text?: string | ReactNode;
   size?: 's' | 'l';
   isLoading?: boolean;
   disabled?: boolean;

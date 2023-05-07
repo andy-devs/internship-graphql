@@ -23,16 +23,6 @@ const nextConfig = {
         permanent: false,
       },
       {
-        source: '/my-posts',
-        destination: '/',
-        permanent: false,
-      },
-      {
-        source: '/favorites',
-        destination: '/',
-        permanent: false,
-      },
-      {
         source: '/ui-kit',
         destination: '/',
         permanent: false,

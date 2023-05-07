@@ -2,6 +2,7 @@ import { PostCard } from '@entities/post/ui/post-card';
 import { PostCardSkeleton } from '@entities/post/ui/post-card-skeleton';
 import { PostFragment } from '@shared/api/post/fragments/__generated__/post.fragment';
 import { COLORS } from '@shared/assets/colors';
+import { ROUTES } from '@shared/constants/routes';
 import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
 import { FC, useState } from 'react';
@@ -29,7 +30,10 @@ export const PostModal: FC<PostModalProps> = ({ post, isLoading }) => {
   const closeModal = () => setIsOpen(true);
 
   const handleRequestClose = () => {
-    router.push('/', undefined, { shallow: true, scroll: false });
+    router.push(router.route !== '/posts/[postId]' ? router.route : ROUTES.HOME, undefined, {
+      shallow: true,
+      scroll: false,
+    });
     setLocked(false);
   };
 

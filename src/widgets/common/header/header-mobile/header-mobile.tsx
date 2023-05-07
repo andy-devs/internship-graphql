@@ -12,12 +12,12 @@ import { useTheme } from 'next-themes';
 import { FC, useEffect, useState } from 'react';
 import { useLockedBody, useScreen } from 'usehooks-ts';
 
-import { HeaderProps, mobileNavLinks } from '../header';
+import { HeaderProps } from '../header';
 import { UserProfile } from '../header-desktop/ui/user-dropdown';
 
 interface HeaderMobileProps extends HeaderProps {}
 
-export const HeaderMobile: FC<HeaderMobileProps> = ({ userData, isLoading }) => {
+export const HeaderMobile: FC<HeaderMobileProps> = ({ navLinks, userData, isLoading }) => {
   const router = useRouter();
   const currentRoute = router.pathname as string;
   const currentRouteName = ROUTE_NAMES[currentRoute];
@@ -85,7 +85,7 @@ export const HeaderMobile: FC<HeaderMobileProps> = ({ userData, isLoading }) => 
               </Link>
             )}
             {StorageService.isAuthorized() &&
-              mobileNavLinks.map(({ text, href }) => (
+              navLinks?.map(({ text, href }) => (
                 <Link
                   href={href}
                   key={href}

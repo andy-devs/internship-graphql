@@ -15,6 +15,8 @@ const Avatar: FC<AvatarProps> = ({ url, component, size = 'm', isLoading }) => {
     <Skeleton
       variant="circular"
       style={{
+        minWidth: size === 's' ? '38px' : size === 'm' ? '40px' : '138px',
+        minHeight: size === 's' ? '38px' : size === 'm' ? '40px' : '138px',
         width: size === 's' ? '38px' : size === 'm' ? '40px' : '138px',
         height: size === 's' ? '38px' : size === 'm' ? '40px' : '138px',
       }}
@@ -23,13 +25,21 @@ const Avatar: FC<AvatarProps> = ({ url, component, size = 'm', isLoading }) => {
     <AvatarMui
       src={url}
       sx={{
+        minWidth: size === 's' ? '38px' : size === 'm' ? '40px' : '138px',
+        minHeight: size === 's' ? '38px' : size === 'm' ? '40px' : '138px',
         width: size === 's' ? '38px' : size === 'm' ? '40px' : '138px',
         height: size === 's' ? '38px' : size === 'm' ? '40px' : '138px',
       }}
     />
   ) : (
     <SvgUserAvatar
-      className={`${size === 's' ? 'h-[38px] w-[38px]' : size === 'm' ? 'h-[40px] w-[40px]' : 'h-[138px] w-[138px]'}`}
+      className={`${
+        size === 's'
+          ? 'h-[38px] min-h-[38px] w-[38px] min-w-[38px]'
+          : size === 'm'
+          ? 'h-[40px] min-h-[40px] w-[40px] min-w-[40px]'
+          : 'h-[138px] w-[138px]'
+      }`}
     />
   );
 };

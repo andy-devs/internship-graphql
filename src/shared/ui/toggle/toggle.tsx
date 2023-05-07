@@ -18,9 +18,6 @@ const Root = styled(Switch)`
   height: 24px;
   padding: 0;
   border-radius: 16px;
-  &:focus-within {
-    box-shadow: 0 0 0 2px ${COLORS.grayscale200};
-  }
 
   & .MuiSwitch-switchBase {
     padding: 0;

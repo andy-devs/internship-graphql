@@ -10,7 +10,7 @@ const PostPage = () => {
 
   const { postId } = router.query;
 
-  const { data, loading, error } = usePost({ variables: { input: { id: postId as string } } });
+  const { data, loading } = usePost({ variables: { input: { id: postId as string } } });
 
   const post = data?.post;
 
@@ -29,6 +29,7 @@ const PostPage = () => {
 
 export default PostPage;
 
+// TODO: when backend will be fixed to ssr
 // export async function getStaticPaths() {
 //   return {
 //     paths: [{ params: { postSlug: 'sth' } }, { params: { postSlug: 'sth-else' } }],
