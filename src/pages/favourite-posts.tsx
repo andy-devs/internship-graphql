@@ -1,6 +1,8 @@
 import { FavouritePostsList } from '@entities/post/favourite-posts-list/favourite-posts-list';
 import { PostModal } from '@entities/post/ui/post-modal';
 import { usePostLazyQuery } from '@shared/api/post/queries/__generated__/post.query';
+import { ROUTES } from '@shared/constants/routes';
+import { StorageService } from '@shared/services/utils/storage-service';
 import { MainLayout } from '@widgets/layouts/main-layout';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -17,6 +19,14 @@ export default function FavouritePosts() {
       getPost({ variables: { input: { id: postId as string } } });
     }
   }, [postId]);
+
+  const token = StorageService.getAccessToken();
+
+  useEffect(() => {
+    if (!token) {
+      router.replace(ROUTES.HOME);
+    }
+  }, [token]);
 
   const post = data?.post;
 

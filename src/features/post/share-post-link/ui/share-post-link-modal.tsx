@@ -17,7 +17,7 @@ type Props = {
 export const PostLinkModal = ({ hideModal, postId }: Props) => {
   const [value, copyValue] = useCopyToClipboard();
 
-  const link = `${location.host}/posts/${postId}`;
+  const link = `${location.origin}/posts/${postId}`;
 
   const { theme, systemTheme } = useTheme();
   const currentTheme = theme === 'system' ? systemTheme : theme;
