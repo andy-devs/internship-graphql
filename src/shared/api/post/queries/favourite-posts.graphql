@@ -1,0 +1,12 @@
+query FavouritePosts($input: FindFavouritePostsRequest!) {
+  favouritePosts(input: $input) {
+    data {
+      ...PostFragment
+    }
+    pageInfo {
+      afterCursor
+      count
+      perPage
+    }
+  }
+}

@@ -2,7 +2,7 @@ export const ROUTES = {
   HOME: '/',
   POST: '/posts',
   MY_POSTS: '/my-posts',
-  FAVORITES: '/favorites',
+  FAVORITES: '/favourite-posts',
   SIGN_UP: '/auth/sign-up',
   SIGN_IN: '/auth/sign-in',
   PROFILE: 'profile',

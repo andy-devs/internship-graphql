@@ -1,3 +1,6 @@
+import { usePostLike } from '@features/post/post-like/post-like';
+import { usePostUnlike } from '@features/post/post-unlike/post-unlike';
+import { useSharePostLinkModal } from '@features/post/share-post-link/lib/use-share-post-link-modal';
 import { PostFragment } from '@shared/api/post/fragments/__generated__/post.fragment';
 import { SvgCloseIcon } from '@shared/icons/components/close-icon';
 import { SvgFilledHeartIcon } from '@shared/icons/components/filled-heart-icon';
@@ -8,7 +11,7 @@ import { IconButton } from '@shared/ui/buttons/icon-button';
 import dayjs from 'dayjs';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
 interface PostCardProps {
   post?: PostFragment;
@@ -17,7 +20,10 @@ interface PostCardProps {
 }
 
 export const PostCard: FC<PostCardProps> = ({ post, isDetailPage = false, onCloseCallback }) => {
-  const [isFavorite, setIsFavorite] = useState(false);
+  const { showShareLinkModal } = useSharePostLinkModal();
+
+  const { postLike } = usePostLike();
+  const { postUnlike } = usePostUnlike();
 
   return (
     <article
@@ -73,17 +79,17 @@ export const PostCard: FC<PostCardProps> = ({ post, isDetailPage = false, onClos
         </Link>
       )}
       <div className="mt-[20px] sm:mt-2">
-        {isFavorite ? (
+        {post?.isLiked ? (
           <IconButton
             icon={<SvgFilledHeartIcon />}
-            className="mr-2 stroke-[#F03E3E]"
-            onClick={() => setIsFavorite(prev => !prev)}
+            className="mr-2 !stroke-[#F03E3E]"
+            onClick={() => postUnlike(post?.id || '')}
           />
         ) : (
-          <IconButton icon={<SvgStokeHeartIcon />} className="mr-2" onClick={() => setIsFavorite(prev => !prev)} />
+          <IconButton icon={<SvgStokeHeartIcon />} className="mr-2" onClick={() => postLike(post?.id || '')} />
         )}
 
-        <IconButton icon={<SvgShareIcon />} />
+        <IconButton icon={<SvgShareIcon />} onClick={() => showShareLinkModal(post?.id)} />
       </div>
     </article>
   );

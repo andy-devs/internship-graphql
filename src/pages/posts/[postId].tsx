@@ -1,4 +1,4 @@
-import { PostModal } from '@features/post/post-modal/post-modal';
+import { PostModal } from '@entities/post/ui/post-modal';
 import { usePost } from '@shared/api/post/queries/__generated__/post.query';
 import { ROUTES } from '@shared/constants/routes';
 import { StorageService } from '@shared/services/utils/storage-service';

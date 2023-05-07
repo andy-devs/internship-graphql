@@ -8,6 +8,7 @@ import { client } from '@shared/services/apollo/apollo-client';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { ThemeProvider } from 'next-themes';
+import { ModalProvider } from 'react-modal-hook';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -31,11 +32,13 @@ export default function App({ Component, pageProps }: AppProps) {
           }}
         />
       </Head>
-      <ApolloProvider client={client}>
-        <ToasterProvider>
-          <Component {...pageProps} />
-        </ToasterProvider>
-      </ApolloProvider>
+      <ModalProvider>
+        <ApolloProvider client={client}>
+          <ToasterProvider>
+            <Component {...pageProps} />
+          </ToasterProvider>
+        </ApolloProvider>
+      </ModalProvider>
     </ThemeProvider>
   );
 }

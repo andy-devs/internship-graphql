@@ -1,11 +1,11 @@
+import { FavouritePostsList } from '@entities/post/favourite-posts-list/favourite-posts-list';
 import { PostModal } from '@entities/post/ui/post-modal';
-import { PostsList } from '@features/post/posts-list/posts-list';
 import { usePostLazyQuery } from '@shared/api/post/queries/__generated__/post.query';
 import { MainLayout } from '@widgets/layouts/main-layout';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
-export default function Home() {
+export default function FavouritePosts() {
   const router = useRouter();
 
   const { postId } = router.query;
@@ -22,7 +22,7 @@ export default function Home() {
 
   return (
     <MainLayout>
-      <PostsList />
+      <FavouritePostsList />
 
       {postId && <PostModal post={post} isLoading={loading} />}
     </MainLayout>

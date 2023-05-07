@@ -70,7 +70,6 @@ export const PostModal: FC<PostModalProps> = ({ post, isLoading }) => {
       contentLabel="Post modal"
       style={customStyles}
       preventScroll
-      // overlayClassName={}
     >
       {isLoading ? <PostCardSkeleton /> : <PostCard post={post} isDetailPage onCloseCallback={handleClose} />}
     </Modal>
