@@ -7,3 +7,8 @@ export const FILE_ACCEPTS = {
   image: { 'image/*': ['.jpeg', '.png'] },
   pdf: { 'application/pdf': ['.pdf'] },
 };
+
+export enum FILE_TYPES {
+  POSTS = 'POSTS',
+  AVATARS = 'AVATARS',
+}

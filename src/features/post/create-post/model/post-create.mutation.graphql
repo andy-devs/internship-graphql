@@ -1,0 +1,5 @@
+mutation PostCreate($input: CreatePostRequest!) {
+  postCreate(input: $input) {
+    ...PostFragment
+  }
+}

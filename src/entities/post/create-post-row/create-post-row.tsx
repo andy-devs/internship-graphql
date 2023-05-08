@@ -23,7 +23,7 @@ export const CreatePostRow: FC<CreatePostRowProps> = () => {
       <NoSsr>
         <Link href={ROUTES.CREATE_POST} className="ml-auto w-full max-w-[44px] sm:max-w-[164px]">
           <PrimaryButton text="Создать пост" className="hidden sm:block" />
-          <PrimaryButton text={<SvgAddIcon />} className="block p-0 sm:hidden" />
+          <PrimaryButton text={<SvgAddIcon />} className="block !p-0 sm:hidden" />
         </Link>
       </NoSsr>
     </div>

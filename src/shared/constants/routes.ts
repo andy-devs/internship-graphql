@@ -16,5 +16,7 @@ export const ROUTE_NAMES = {
   [ROUTES.MY_POSTS]: 'Мои посты',
   [ROUTES.FAVORITES]: 'Избранные',
   [ROUTES.SIGN_UP]: 'Создать аккаунт',
-  [ROUTES.SIGN_IN]: 'Войти',
+  [ROUTES.CREATE_POST]: 'Создание поста',
+  [ROUTES.EDIT_POST]: 'Редактирование поста',
+  [ROUTES.POST]: 'Страница поста',
 } as Record<string, string>;

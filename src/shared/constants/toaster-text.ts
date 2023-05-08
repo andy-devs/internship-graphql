@@ -4,4 +4,5 @@ export const TOASTER_TEXTS = {
   passwordSet: 'Пароль установлен',
   passwordRestored: 'Пароль восстановлен',
   authSuccess: 'Вы успешно авторизовались',
+  postCreated: 'Пост успешно создан',
 };
