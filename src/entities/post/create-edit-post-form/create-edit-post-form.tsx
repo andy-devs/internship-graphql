@@ -22,6 +22,7 @@ export const CreateEditPostForm = ({ onSubmit, isLoading }: Props) => {
   const {
     control,
     register,
+    getValues,
     formState: { errors },
     setValue,
   } = useFormContext<CreateEditPostFormProps>();
@@ -45,6 +46,7 @@ export const CreateEditPostForm = ({ onSubmit, isLoading }: Props) => {
       </div>
 
       <Dropzone
+        defaultValue={getValues().image as File}
         acceptFileTypes={FILE_ACCEPTS.image}
         onFileUpload={file => setValue('image', file)}
         errorMessage={errors?.image?.message}

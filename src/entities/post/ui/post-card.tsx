@@ -1,10 +1,10 @@
+import { DeletePost } from '@features/post/delete-post/delete-post';
 import { usePostLike } from '@features/post/post-like/post-like';
 import { usePostUnlike } from '@features/post/post-unlike/post-unlike';
 import { useSharePostLinkModal } from '@features/post/share-post-link/lib/use-share-post-link-modal';
 import { PostFragment } from '@shared/api/post/fragments/__generated__/post.fragment';
 import { SvgCloseIcon } from '@shared/icons/components/close-icon';
 import { SvgDeleteIcon } from '@shared/icons/components/delete-icon';
-import { SvgEditIcon } from '@shared/icons/components/edit-icon';
 import { SvgFilledHeartIcon } from '@shared/icons/components/filled-heart-icon';
 import { SvgShareIcon } from '@shared/icons/components/share-icon';
 import { SvgStokeHeartIcon } from '@shared/icons/components/stoke-heart-icon';
@@ -26,7 +26,7 @@ interface PostCardProps {
 export const PostCard: FC<PostCardProps> = ({ post, isDetailPage, isMyPost, onCloseCallback }) => {
   const { showShareLinkModal } = useSharePostLinkModal();
 
-  const { route } = useRouter();
+  const router = useRouter();
 
   const { postLike } = usePostLike();
   const { postUnlike } = usePostUnlike();
@@ -55,8 +55,10 @@ export const PostCard: FC<PostCardProps> = ({ post, isDetailPage, isMyPost, onCl
         {isMyPost && (
           <div className="hidden gap-3 sm:flex">
             <IconButton icon={<SvgShareIcon />} onClick={() => showShareLinkModal(post?.id)} />
-            <IconButton icon={<SvgDeleteIcon />} />
-            <IconButton icon={<SvgEditIcon />} />
+            <DeletePost postId={post?.id || ''}>
+              {props => <IconButton icon={<SvgDeleteIcon />} {...props} />}
+            </DeletePost>
+            {/* <IconButton icon={<SvgEditIcon />} onClick={() => router.push(`/posts/${post?.id}/edit`)} /> */}
           </div>
         )}
       </header>
@@ -82,7 +84,7 @@ export const PostCard: FC<PostCardProps> = ({ post, isDetailPage, isMyPost, onCl
       </p>
       {!isDetailPage && (
         <Link
-          href={`${route}?postId=${post?.id}`}
+          href={`${router.route}?postId=${post?.id}`}
           as={`/posts/${post?.id}`}
           shallow
           scroll={false}
@@ -94,8 +96,8 @@ export const PostCard: FC<PostCardProps> = ({ post, isDetailPage, isMyPost, onCl
       {isMyPost ? (
         <div className="mt-[20px] flex gap-1.5 sm:mt-2 sm:hidden">
           <IconButton icon={<SvgShareIcon />} onClick={() => showShareLinkModal(post?.id)} />
-          <IconButton icon={<SvgDeleteIcon />} />
-          <IconButton icon={<SvgEditIcon />} />
+          <DeletePost postId={post?.id || ''}>{props => <IconButton icon={<SvgDeleteIcon />} {...props} />}</DeletePost>
+          {/* <IconButton icon={<SvgEditIcon />} onClick={() => router.push(`/posts/${post?.id}/edit`)} /> */}
         </div>
       ) : (
         <div className="mt-[20px] sm:mt-2">

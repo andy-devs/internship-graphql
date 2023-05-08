@@ -1,7 +1,7 @@
 import { NetworkStatus } from '@apollo/client';
 import { PostCard } from '@entities/post/ui/post-card';
 import { PostCardSkeleton } from '@entities/post/ui/post-card-skeleton';
-import { useFavouritePosts } from '@shared/api/post/queries/__generated__/favourite-posts';
+import { useFavouritePosts } from '@shared/api/post/queries/__generated__/favourite-posts.query';
 import { Toast } from '@shared/components/toast/toast';
 import { ROUTES } from '@shared/constants/routes';
 import { SvgFavouritePostsEmpty } from '@shared/icons/components/favourite-posts-empty';

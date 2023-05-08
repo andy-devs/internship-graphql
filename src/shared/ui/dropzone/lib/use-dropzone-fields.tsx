@@ -7,9 +7,19 @@ interface FileType extends File {
   preview?: string;
 }
 
-export const useDropzoneFields = ({ hasErrorFormat, onFileUpload, acceptFileTypes, isDisabled }: DropzoneProps) => {
+export const useDropzoneFields = ({
+  hasErrorFormat,
+  onFileUpload,
+  acceptFileTypes,
+  isDisabled,
+  defaultValue,
+}: DropzoneProps) => {
   const [isErrorFormat, setIsErrorFormat] = useState(hasErrorFormat);
   const [file, setFile] = useState<FileType | null>();
+
+  useEffect(() => {
+    setFile(defaultValue);
+  }, [defaultValue]);
 
   const onDropAccepted = useCallback(async (acceptedFiles: File[]) => {
     if (acceptedFiles.length) {

@@ -32,7 +32,7 @@ export const MyPostsList: FC<PostsListProps> = () => {
 
   return (
     <div className="mx-auto flex h-full max-w-[743px] flex-col items-center">
-      {<CreatePostRow />}
+      {posts?.length !== 0 && <CreatePostRow />}
       <InfiniteScroll
         className="w-full max-w-[743px]"
         dataLength={posts?.length || 0}

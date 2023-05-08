@@ -17,10 +17,12 @@ export interface DropzoneProps {
   hasErrorFormat?: boolean;
   className?: string;
   isParsing?: boolean;
+  defaultValue?: File;
 }
 
 export const Dropzone = ({
   text = 'Перетащите фото сюда',
+  defaultValue,
   errorMessage,
   isDisabled = false,
   onFileUpload,
@@ -35,6 +37,7 @@ export const Dropzone = ({
       onFileUpload,
       acceptFileTypes,
       isDisabled,
+      defaultValue,
     });
 
   const hasNotFile = !file && !isErrorFormat;
