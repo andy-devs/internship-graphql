@@ -15,6 +15,7 @@ interface DropdownProps {
   buttonClassName?: string;
   isLoading?: boolean;
   disabled?: boolean;
+  hasChevron?: boolean;
 }
 
 export const Dropdown: FC<DropdownProps> = ({
@@ -24,6 +25,7 @@ export const Dropdown: FC<DropdownProps> = ({
   buttonClassName,
   isLoading,
   disabled,
+  hasChevron = true,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -34,16 +36,18 @@ export const Dropdown: FC<DropdownProps> = ({
   useOnClickOutside(dropdownRef, () => setIsOpen(false));
 
   return (
-    <div ref={dropdownRef} className={`relative select-none ${className}`}>
+    <div ref={dropdownRef} className={`relative select-none ${className}`} onClick={e => e.stopPropagation()}>
       <div className={`flex cursor-pointer items-center ${buttonClassName}`} onClick={toggleDropdown}>
         {buttonContent}{' '}
         {isLoading ? (
           <Skeleton variant="rounded" style={{ width: '24px', height: '24px' }} />
-        ) : isOpen ? (
-          <SvgOpenedChevronIcon />
-        ) : (
-          <SvgClosedChevronIcon />
-        )}
+        ) : hasChevron ? (
+          isOpen ? (
+            <SvgOpenedChevronIcon />
+          ) : (
+            <SvgClosedChevronIcon />
+          )
+        ) : null}
       </div>
       {isOpen && (
         <div className="absolute z-30 mt-2 w-full overflow-hidden rounded-lg bg-grayscale100 shadow-lg dark:bg-grayscale700">

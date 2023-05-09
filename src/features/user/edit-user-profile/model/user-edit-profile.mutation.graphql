@@ -1,0 +1,15 @@
+mutation UserEditProfile($input: EditProfileRequest!) {
+  userEditProfile(input: $input) {
+    problem {
+      ... on EmailAlreadyUsedProblem {
+        message
+      }
+      ... on PhoneAlreadyUsedProblem {
+        message
+      }
+    }
+    user {
+      ...UserFragment
+    }
+  }
+}

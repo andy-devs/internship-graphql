@@ -4,6 +4,8 @@ import '@app/assets/styles/globals.css';
 
 import { ApolloProvider } from '@apollo/client';
 import { ToasterProvider } from '@app/providers/toaster/toaster-provider';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { client } from '@shared/services/apollo/apollo-client';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
@@ -32,13 +34,15 @@ export default function App({ Component, pageProps }: AppProps) {
           }}
         />
       </Head>
-      <ModalProvider>
-        <ApolloProvider client={client}>
-          <ToasterProvider>
-            <Component {...pageProps} />
-          </ToasterProvider>
-        </ApolloProvider>
-      </ModalProvider>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <ModalProvider>
+          <ApolloProvider client={client}>
+            <ToasterProvider>
+              <Component {...pageProps} />
+            </ToasterProvider>
+          </ApolloProvider>
+        </ModalProvider>
+      </LocalizationProvider>
     </ThemeProvider>
   );
 }
