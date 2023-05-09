@@ -42,6 +42,7 @@ export const AvatarDropzone = ({
     });
 
   const hasNotFile = !file && !isErrorFormat;
+
   const hasSuccessedFormatFile = file && !isErrorFormat;
 
   const dropdownList = [
