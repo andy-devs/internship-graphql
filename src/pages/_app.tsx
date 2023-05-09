@@ -1,6 +1,7 @@
 import '@app/assets/styles/reset.css';
 import '@app/assets/styles/fonts.css';
 import '@app/assets/styles/globals.css';
+import 'react-datepicker/dist/react-datepicker.css';
 
 import { ApolloProvider } from '@apollo/client';
 import { ToasterProvider } from '@app/providers/toaster/toaster-provider';

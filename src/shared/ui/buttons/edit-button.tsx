@@ -14,6 +14,7 @@ export const EditButton: FC<EditButtonProps> = ({ className, dropdownList, ...pr
       hasChevron={false}
       buttonContent={
         <button
+          type="button"
           className={`z-10 flex h-[36px] w-[36px] items-center justify-center rounded-full border border-solid border-grayscale400 bg-grayscale100 dark:border-primary600 dark:bg-grayscale800 ${className}`}
           {...props}
         >

@@ -8,7 +8,6 @@ import { ROUTES } from '@shared/constants/routes';
 import { TOASTER_TEXTS } from '@shared/constants/toaster-text';
 import { parseError } from '@shared/lib/parse-error';
 import { putObject } from '@shared/utils/put-object';
-import { File } from 'buffer';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';

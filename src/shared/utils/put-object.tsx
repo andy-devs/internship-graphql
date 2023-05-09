@@ -1,7 +1,6 @@
 import { FILE_TYPES, REACT_APP_AWS_API_URL } from '@shared/constants/common';
 import { StorageService } from '@shared/services/utils/storage-service';
 import axios from 'axios';
-import { File } from 'buffer';
 import { v4 as uuid } from 'uuid';
 
 export const putObject = async (file: File, type: FILE_TYPES) => {

@@ -53,7 +53,7 @@ export const Dropdown: FC<DropdownProps> = ({
         <div className="absolute z-30 mt-2 w-full overflow-hidden rounded-lg bg-grayscale100 shadow-lg dark:bg-grayscale700">
           {dropdownList.map((item, index) => (
             <div
-              onClick={e => {
+              onMouseDown={e => {
                 setIsOpen(false);
                 // @ts-ignore
                 e.currentTarget.firstChild?.click();

@@ -1,6 +1,7 @@
 import { Accept } from 'react-dropzone';
 
 import Avatar from '../avatar/avatar';
+import { EditButton } from '../buttons/edit-button';
 import { useDropzoneFields } from './lib/use-dropzone-fields';
 import { ErrorInputLine } from './ui/error-input-line';
 import { FileInputLine } from './ui/file-input-line';
@@ -43,6 +44,19 @@ export const AvatarDropzone = ({
   const hasNotFile = !file && !isErrorFormat;
   const hasSuccessedFormatFile = file && !isErrorFormat;
 
+  const dropdownList = [
+    <button
+      type="button"
+      key="edit"
+      onClick={e => {
+        openFileManager();
+        e.stopPropagation();
+      }}
+    >
+      Загрузить фото
+    </button>,
+  ];
+
   return (
     <div {...getRootProps({ className })} className="cursor-pointer">
       <input {...getInputProps()} />
@@ -66,6 +80,7 @@ export const AvatarDropzone = ({
       {hasNotFile && (
         <div className="mb-3">
           <Avatar size="l" />
+          <EditButton className="absolute bottom-0 right-0" dropdownList={dropdownList} />
         </div>
       )}
     </div>

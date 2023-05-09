@@ -11,16 +11,23 @@ interface FileInputProps {
 
 export const FileInputLine = ({ filePreview, deleteFile, file, openFileManager }: FileInputProps) => {
   const dropdownList = [
-    <button key="delete" onClick={() => file && deleteFile?.(file)}>
+    <button type="button" key="delete" onClick={() => file && deleteFile?.(file)}>
       Удалить фото
     </button>,
-    <button key="edit" onClick={() => openFileManager()}>
+    <button
+      type="button"
+      key="edit"
+      onClick={e => {
+        e.stopPropagation();
+        openFileManager();
+      }}
+    >
       Загрузить фото
     </button>,
   ];
 
   return (
-    <div className="relative mb-3" onClick={e => e.stopPropagation()}>
+    <div className="relative mb-3">
       <img
         className="h-[138px] w-[138px] rounded-full object-cover object-center"
         src={filePreview}

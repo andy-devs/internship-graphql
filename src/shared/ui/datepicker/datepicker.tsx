@@ -4,6 +4,7 @@ import { COLORS } from '@shared/assets/colors';
 import { SvgCalenderIcon } from '@shared/icons/components/calender-icon';
 import ru from 'date-fns/locale/ru';
 import dayjs from 'dayjs';
+import { useTheme } from 'next-themes';
 import { FC } from 'react';
 import DatePicker, { ReactDatePickerProps, registerLocale } from 'react-datepicker';
 import { Control, Controller } from 'react-hook-form';
@@ -35,8 +36,13 @@ export const FormDatepicker: FC<Props> = ({
   errorText,
   ...props
 }) => {
+  const { theme, systemTheme } = useTheme();
+  const currentTheme = theme === 'system' ? systemTheme : theme;
+
+  const isDarkTheme = currentTheme === 'dark';
+
   return (
-    <Root className={className}>
+    <Root className={className} isDarkTheme={isDarkTheme}>
       <Controller
         control={control}
         name={name}
@@ -75,20 +81,39 @@ export const FormDatepicker: FC<Props> = ({
   );
 };
 
-const Root = styled.div`
+const Root = styled.div<{ isDarkTheme?: boolean }>`
   position: relative;
   width: 100%;
-  max-width: 316px;
+
+  .react-datepicker__day.react-datepicker__day--keyboard-selected {
+    background: none;
+    color: black;
+  }
 
   .react-datepicker {
     box-shadow: 0px 0px 1px rgba(0, 20, 51, 0.3), 0px 4px 12px rgba(0, 20, 51, 0.15);
     border-radius: 8px;
     border: none;
-    overflow: hidden;
+  }
+
+  .react-datepicker-popper {
+    border-radius: 8px;
+  }
+
+  .react-datepicker__triangle {
+    display: none;
+  }
+
+  .react-datepicker__month {
+    background: ${({ isDarkTheme }) => (isDarkTheme ? COLORS.grayscale700 : COLORS.grayscale100)};
+  }
+
+  .react-datepicker__month-container {
+    background: ${({ isDarkTheme }) => (isDarkTheme ? COLORS.grayscale700 : COLORS.grayscale100)};
   }
 
   .react-datepicker__header {
-    background: ${COLORS.grayscale100};
+    background: ${({ isDarkTheme }) => (isDarkTheme ? COLORS.grayscale700 : COLORS.grayscale100)};
     border: none;
     padding: 13px 16px 0;
     margin: 0;
@@ -104,6 +129,10 @@ const Root = styled.div`
 
   .react-datepicker__current-month {
     display: none;
+  }
+
+  .react-datepicker__year-read-view {
+    visibility: visible !important;
   }
 
   .react-datepicker__month-read-view,
@@ -131,14 +160,15 @@ const Root = styled.div`
   .react-datepicker__day {
     line-height: 27px;
     width: 31px;
-    height: 27px;
-    color: ${COLORS.grayscale700};
-    border-radius: 6px;
+    height: 31px;
+    color: ${({ isDarkTheme }) => (isDarkTheme ? COLORS.grayscale100 : COLORS.grayscale700)};
+    border-radius: 100%;
     border: 1px solid transparent;
 
     &:hover {
-      background-color: ${COLORS.grayscale100};
+      background-color: ${({ isDarkTheme }) => (isDarkTheme ? COLORS.grayscale700 : COLORS.grayscale100)};
       border: 1px solid ${COLORS.primary400};
+      border-radius: 100%;
     }
   }
 
@@ -156,11 +186,11 @@ const Root = styled.div`
 
   .react-datepicker__day--keyboard-selected,
   .react-datepicker__day--selected {
-    background: ${COLORS.primary400};
+    background: ${({ isDarkTheme }) => (isDarkTheme ? COLORS.primary600 : COLORS.primary400)};
     color: ${COLORS.grayscale100};
 
     &:hover {
-      background: ${COLORS.primary400};
+      background: ${({ isDarkTheme }) => (isDarkTheme ? COLORS.primary600 : COLORS.primary400)};
     }
   }
 
@@ -176,11 +206,12 @@ const Root = styled.div`
 
   .react-datepicker__month-read-view--selected-month,
   .react-datepicker__year-read-view--selected-year {
+    color: ${({ isDarkTheme }) => (isDarkTheme ? COLORS.grayscale100 : COLORS.grayscale700)};
   }
 
   .react-datepicker__year-read-view--down-arrow,
   .react-datepicker__month-read-view--down-arrow {
-    top: 6px;
+    top: 3px;
   }
 
   .react-datepicker__month-read-view--selected-month {
@@ -192,15 +223,16 @@ const Root = styled.div`
     text-transform: capitalize;
     text-align: left;
     padding: 8px 16px;
+    color: ${({ isDarkTheme }) => (isDarkTheme ? COLORS.grayscale100 : COLORS.grayscale800)};
 
     &:hover {
-      background: ${COLORS.primary200};
+      background: ${({ isDarkTheme }) => (isDarkTheme ? COLORS.primary500 : COLORS.primary200)};
     }
   }
 
   .react-datepicker__year-option--selected_year,
   .react-datepicker__month-option--selected_month {
-    background: ${COLORS.primary300};
+    background: ${({ isDarkTheme }) => (isDarkTheme ? COLORS.primary600 : COLORS.primary400)};
   }
 
   .react-datepicker__year-option--selected_year .react-datepicker__year-option--selected,
@@ -240,12 +272,11 @@ const Root = styled.div`
 
   .react-datepicker__year-dropdown,
   .react-datepicker__month-dropdown {
-    background-color: ${COLORS.grayscale100};
+    background-color: ${({ isDarkTheme }) => (isDarkTheme ? COLORS.grayscale700 : COLORS.grayscale100)};
     overflow-y: scroll;
     height: 216px;
     box-shadow: 0px 0px 1px rgba(0, 20, 51, 0.3), 0px 4px 12px rgba(0, 20, 51, 0.15);
     border-radius: 8px;
-    padding: 8px 0;
   }
 `;
 
