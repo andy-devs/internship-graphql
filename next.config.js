@@ -18,11 +18,6 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: '/profile',
-        destination: '/',
-        permanent: false,
-      },
-      {
         source: '/ui-kit',
         destination: '/',
         permanent: false,

@@ -1,10 +1,13 @@
+import { usePostLazyQuery } from '@shared/api/post/queries/__generated__/post.query';
 import { COLORS } from '@shared/assets/colors';
 import { Toast } from '@shared/components/toast/toast';
+import { FILE_TYPES } from '@shared/constants/common';
 import { TOASTER_TEXTS } from '@shared/constants/toaster-text';
 import { SvgCloseIcon } from '@shared/icons/components/close-icon';
 import { IconButton } from '@shared/ui/buttons/icon-button';
 import { PrimaryButton } from '@shared/ui/buttons/primary-button';
 import { SecondaryButton } from '@shared/ui/buttons/secondary-button';
+import { removeObject } from '@shared/utils/remove-object';
 import { useTheme } from 'next-themes';
 import { FC, ReactNode, useState } from 'react';
 import Modal from 'react-modal';
@@ -25,8 +28,10 @@ interface Props {
   children: (props: RenderProps) => ReactNode;
 }
 
-export const DeletePost: FC<Props> = ({ postId, isLoading, onSuccess, children }) => {
+export const DeletePost: FC<Props> = ({ postId, onSuccess, children }) => {
   const [locked, setLocked] = useLockedBody(false, 'root');
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const { theme, systemTheme } = useTheme();
   const currentTheme = theme === 'system' ? systemTheme : theme;
@@ -58,7 +63,8 @@ export const DeletePost: FC<Props> = ({ postId, isLoading, onSuccess, children }
     },
   };
 
-  const [deletePost, { loading: isDeleting }] = usePostDelete();
+  const [deletePost] = usePostDelete();
+  const [getPost] = usePostLazyQuery();
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const handleModalOpen = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -76,6 +82,10 @@ export const DeletePost: FC<Props> = ({ postId, isLoading, onSuccess, children }
     if (!postId) return;
 
     try {
+      setIsLoading(true);
+
+      const post = await getPost({ variables: { input: { id: postId } } });
+
       await deletePost({
         variables: { input: { id: postId } },
         update(cache, { data, errors }) {
@@ -114,10 +124,13 @@ export const DeletePost: FC<Props> = ({ postId, isLoading, onSuccess, children }
         },
       });
 
+      await removeObject(post?.data?.post?.mediaUrl || '', FILE_TYPES.POSTS);
+
       onSuccess?.();
 
       toast(<Toast text={TOASTER_TEXTS.postDeleted} />);
     } finally {
+      setIsLoading(false);
       handleModalClose();
     }
   };
@@ -125,7 +138,7 @@ export const DeletePost: FC<Props> = ({ postId, isLoading, onSuccess, children }
   return (
     <>
       {children({
-        isLoading: isLoading || isDeleting,
+        isLoading: isLoading,
         onClick: handleModalOpen,
       })}
 

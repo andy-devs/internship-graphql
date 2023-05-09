@@ -5,7 +5,7 @@ export const ROUTES = {
   FAVORITES: '/favourite-posts',
   SIGN_UP: '/auth/sign-up',
   SIGN_IN: '/auth/sign-in',
-  PROFILE: 'profile',
+  PROFILE: '/profile',
   POST: '/posts/[postId]',
   CREATE_POST: '/posts/create',
   EDIT_POST: '/posts/[postId]/edit',
@@ -19,4 +19,5 @@ export const ROUTE_NAMES = {
   [ROUTES.CREATE_POST]: 'Создание поста',
   [ROUTES.EDIT_POST]: 'Редактирование поста',
   [ROUTES.POST]: 'Страница поста',
+  [ROUTES.PROFILE]: 'Мой профиль',
 } as Record<string, string>;
