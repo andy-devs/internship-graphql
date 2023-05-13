@@ -90,6 +90,7 @@ export const HeaderMobile: FC<HeaderMobileProps> = ({ navLinks, userData, isLoad
                   href={href}
                   key={href}
                   className="body_regular_14pt block w-full border-b border-solid border-grayscale200 py-[18px] dark:border-[#373737]"
+                  onClick={() => setIsOpen(prev => !prev)}
                 >
                   {text}
                 </Link>

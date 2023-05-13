@@ -55,7 +55,7 @@ export const MyPostsList: FC<PostsListProps> = () => {
         )}
         {posts?.length === 0 && (
           <div className="align-center flex h-full flex-col items-center justify-center">
-            <SvgFavouritePostsEmpty />
+            <SvgFavouritePostsEmpty className="h-auto w-auto max-w-full" />
             <p className="mt-[4px] mb-2">У вас пока нет ни одного поста</p>
             <Link href={ROUTES.CREATE_POST} className="w-full max-w-[164px]">
               <PrimaryButton text="Создать пост" />

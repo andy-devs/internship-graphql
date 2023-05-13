@@ -11,6 +11,7 @@ export interface DropzoneProps {
   text?: string;
   errorMessage?: string;
   onFileUpload?: (file: File | null) => void;
+  onFileDelete?: () => void;
   acceptFileTypes?: Accept;
   isDisabled?: boolean;
   hasButton?: boolean;
@@ -19,6 +20,7 @@ export interface DropzoneProps {
   className?: string;
   isParsing?: boolean;
   defaultValue?: File;
+  noClick?: boolean;
 }
 
 export const AvatarDropzone = ({
@@ -27,6 +29,7 @@ export const AvatarDropzone = ({
   errorMessage,
   isDisabled = false,
   onFileUpload,
+  onFileDelete,
   acceptFileTypes,
   hasErrorFormat = false,
   className,
@@ -39,6 +42,7 @@ export const AvatarDropzone = ({
       acceptFileTypes,
       isDisabled,
       defaultValue,
+      noClick: true,
     });
 
   const hasNotFile = !file && !isErrorFormat;
@@ -59,7 +63,7 @@ export const AvatarDropzone = ({
   ];
 
   return (
-    <div {...getRootProps({ className })} className="cursor-pointer">
+    <div {...getRootProps({ className })}>
       <input {...getInputProps()} />
       {hasSuccessedFormatFile && (
         <>
@@ -70,8 +74,11 @@ export const AvatarDropzone = ({
               file={file}
               fileName={file.name}
               filePreview={file?.preview}
-              onClose={() => deleteFile(file)}
+              onClose={() => {
+                deleteFile(file);
+              }}
               deleteFile={deleteFile}
+              onFileDelete={onFileDelete}
               openFileManager={openFileManager}
             />
           )}

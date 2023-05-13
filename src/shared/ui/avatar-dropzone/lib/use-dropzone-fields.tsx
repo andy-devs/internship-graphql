@@ -13,6 +13,7 @@ export const useDropzoneFields = ({
   acceptFileTypes,
   isDisabled,
   defaultValue,
+  noClick,
 }: DropzoneProps) => {
   const [isErrorFormat, setIsErrorFormat] = useState(hasErrorFormat);
   const [file, setFile] = useState<FileType | null>();
@@ -70,6 +71,7 @@ export const useDropzoneFields = ({
     disabled: isDisabled,
     multiple: false,
     accept: acceptFileTypes,
+    noClick: noClick,
   });
 
   return {

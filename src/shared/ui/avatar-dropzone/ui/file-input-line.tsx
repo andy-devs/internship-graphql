@@ -7,11 +7,21 @@ interface FileInputProps {
   deleteFile?: (file: File) => void;
   openFileManager: () => void;
   onClose: () => void;
+  onFileDelete?: () => void;
 }
 
-export const FileInputLine = ({ filePreview, deleteFile, file, openFileManager }: FileInputProps) => {
+export const FileInputLine = ({ filePreview, deleteFile, file, openFileManager, onFileDelete }: FileInputProps) => {
   const dropdownList = [
-    <button type="button" key="delete" onClick={() => file && deleteFile?.(file)}>
+    <button
+      type="button"
+      key="delete"
+      onClick={() => {
+        if (file) {
+          deleteFile?.(file);
+          onFileDelete?.();
+        }
+      }}
+    >
       Удалить фото
     </button>,
     <button

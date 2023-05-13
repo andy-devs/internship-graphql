@@ -3,7 +3,7 @@ import { useDropzone } from 'react-dropzone';
 
 import { DropzoneProps } from '../dropzone';
 
-interface FileType extends File {
+export interface FileType extends File {
   preview?: string;
 }
 

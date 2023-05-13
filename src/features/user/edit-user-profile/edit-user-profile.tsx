@@ -2,11 +2,13 @@ import { ApolloError } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FormControlLabel, Radio, RadioGroup } from '@mui/material';
 import { UserFragment } from '@shared/api/user/fragments/__generated__/user.fragment';
+import { UserEditProfileVariables } from '@shared/api/user/mutations/__generated__/user-edit-profile.mutation';
 import { useUserMe } from '@shared/api/user/queries/__generated__/user-me.query';
 import { COLORS } from '@shared/assets/colors';
 import { Toast } from '@shared/components/toast/toast';
 import { FILE_ACCEPTS, FILE_TYPES } from '@shared/constants/common';
 import { ERROR_TEXTS } from '@shared/constants/error-texts';
+import { REGEX } from '@shared/constants/regex';
 import { ROUTES } from '@shared/constants/routes';
 import { TOASTER_TEXTS } from '@shared/constants/toaster-text';
 import { SvgLoadingIcon } from '@shared/icons/components/loading-icon';
@@ -19,12 +21,13 @@ import { SecondaryButton } from '@shared/ui/buttons/secondary-button';
 import { FormDatepicker } from '@shared/ui/datepicker/datepicker';
 import { Input } from '@shared/ui/inputs/input';
 import { putObject } from '@shared/utils/put-object';
+import { removeObject } from '@shared/utils/remove-object';
 import { isMobilePhone } from 'class-validator';
 import dayjs from 'dayjs';
 import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
@@ -44,18 +47,18 @@ type FormValues = {
 
 export const schema = yup
   .object({
-    avatarUrl: yup.mixed(),
-    firstName: yup.string().trim(),
-    middleName: yup.string().trim(),
-    lastName: yup.string().trim(),
+    avatarUrl: yup.mixed().nullable(),
+    firstName: yup.string().trim().matches(REGEX.onlyLetters, ERROR_TEXTS.onlyLatinAndCyrillic),
+    middleName: yup.string().trim().matches(REGEX.onlyLetters, ERROR_TEXTS.onlyLatinAndCyrillic),
+    lastName: yup.string().trim().matches(REGEX.onlyLetters, ERROR_TEXTS.onlyLatinAndCyrillic),
     birthDate: yup.string().trim(),
-    gender: yup.string().trim(),
-    email: yup.string().trim().email().required(ERROR_TEXTS.required),
+    gender: yup.string().nullable(),
+    email: yup.string().trim().email(ERROR_TEXTS.email).required(ERROR_TEXTS.required),
     phone: yup
       .string()
       .trim()
       .test('is-phone', 'Не валидный номер телефона', value => Boolean(isMobilePhone(value))),
-    country: yup.string().trim(),
+    country: yup.string().trim().matches(REGEX.onlyLetters, ERROR_TEXTS.onlyLatinAndCyrillic),
   })
   .required();
 
@@ -89,18 +92,31 @@ export const UserEditProfile = () => {
     try {
       setIsLoading(true);
 
-      let signedUrl;
+      let signedUrl = null;
 
-      if (data?.avatarUrl) {
-        signedUrl = await putObject(data?.avatarUrl, FILE_TYPES.AVATARS);
+      const newImage = data?.avatarUrl;
+
+      const previousImage = user?.avatarUrl;
+
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
+      if (newImage && newImage?.preview !== previousImage) {
+        signedUrl = await putObject(newImage, FILE_TYPES.AVATARS);
+
+        if (previousImage) {
+          await removeObject(previousImage, FILE_TYPES.AVATARS);
+        }
+      }
+
+      if (!newImage && previousImage) {
+        await removeObject(previousImage, FILE_TYPES.AVATARS);
       }
 
       const input = {
-        // gender: data?.gender as any,
         ...data,
         birthDate: data?.birthDate ? dayjs(data?.birthDate).format(' YYYY-MM-DD').toString().trim() : undefined,
         avatarUrl: signedUrl,
-      } as any;
+      } as UserEditProfileVariables['input'];
 
       await editProfile({
         variables: {
@@ -135,20 +151,24 @@ export const UserEditProfile = () => {
   });
 
   useEffect(() => {
-    reset({
-      firstName: user?.firstName || undefined,
-      middleName: user?.middleName || undefined,
-      lastName: user?.lastName || undefined,
-      birthDate: user?.birthDate || undefined,
-      gender: user?.gender || undefined,
-      email: user?.email,
-      phone: user?.phone || undefined,
-      country: user?.country || undefined,
+    console.log(user?.gender);
+    reset(
+      {
+        firstName: user?.firstName || undefined,
+        middleName: user?.middleName || undefined,
+        lastName: user?.lastName || undefined,
+        birthDate: user?.birthDate || undefined,
+        gender: user?.gender || GenderType.Male,
+        email: user?.email,
+        phone: user?.phone || undefined,
+        country: user?.country || undefined,
 
-      avatarUrl: user?.avatarUrl
-        ? ({ name: user?.avatarUrl?.split('/').at(-1), preview: user?.avatarUrl } as any)
-        : undefined,
-    });
+        avatarUrl: user?.avatarUrl
+          ? ({ name: user?.avatarUrl?.split('/').at(-1), preview: user?.avatarUrl } as any)
+          : undefined,
+      },
+      { keepDirty: true, keepIsValid: true }
+    );
   }, [user]);
 
   return (
@@ -170,8 +190,11 @@ export const UserEditProfile = () => {
             <AvatarDropzone
               defaultValue={getValues().avatarUrl as File}
               acceptFileTypes={FILE_ACCEPTS.image}
-              onFileUpload={file => setValue('avatarUrl', file!)}
               errorMessage={errors?.avatarUrl?.message}
+              onFileUpload={file => setValue('avatarUrl', file!)}
+              onFileDelete={() => {
+                setValue('avatarUrl', undefined);
+              }}
             />
           </div>
 
@@ -194,37 +217,52 @@ export const UserEditProfile = () => {
 
             <div className="mb-3 flex flex-col items-start">
               <span className="body_medium_16pt mb-[4px] text-grayscale800 dark:text-grayscale200">Выберите пол</span>
-              <RadioGroup
-                {...register('gender')}
-                defaultValue={getValues().gender}
-                key={getValues().gender}
-                sx={{
-                  '& .MuiButtonBase-root:hover': {
-                    backgroundColor: 'transparent !important',
-                  },
-                  '& .Mui-checked': {
-                    color: 'black',
-                  },
-                  '& .MuiSvgIcon-root:last-of-type': {
-                    color: COLORS.grayscale100,
-                  },
-                  '& .MuiSvgIcon-root:first-of-type': {
-                    color: COLORS.grayscale300,
-                    background: COLORS.grayscale300,
-                    borderRadius: '100%',
-                  },
-                  '& .Mui-checked .MuiSvgIcon-root:first-of-type': {
-                    color: isDarkTheme ? COLORS.primary600 : COLORS.primary500,
-                    background: isDarkTheme ? COLORS.primary600 : COLORS.primary500,
-                  },
-                  '& .MuiTouchRipple-root': {
-                    display: 'none !important',
-                  },
-                }}
-              >
-                <FormControlLabel value={GenderType.Male} control={<Radio />} label="Мужской" />
-                <FormControlLabel value={GenderType.Female} control={<Radio />} label="Женский" />
-              </RadioGroup>
+              <Controller
+                control={control}
+                name="gender"
+                render={({ field }) => (
+                  <RadioGroup
+                    {...field}
+                    defaultValue={user?.gender || ''}
+                    sx={{
+                      '& .MuiButtonBase-root:hover': {
+                        backgroundColor: 'transparent !important',
+                      },
+                      '& .Mui-checked': {
+                        color: 'black',
+                      },
+                      '& .MuiSvgIcon-root:last-of-type': {
+                        color: COLORS.grayscale100,
+                      },
+                      '& .MuiSvgIcon-root:first-of-type': {
+                        color: COLORS.grayscale300,
+                        background: COLORS.grayscale300,
+                        borderRadius: '100%',
+                      },
+                      '& .Mui-checked .MuiSvgIcon-root:first-of-type': {
+                        color: isDarkTheme ? COLORS.primary600 : COLORS.primary500,
+                        background: isDarkTheme ? COLORS.primary600 : COLORS.primary500,
+                      },
+                      '& .MuiTouchRipple-root': {
+                        display: 'none !important',
+                      },
+                    }}
+                  >
+                    <FormControlLabel
+                      key={GenderType.Male}
+                      value={GenderType.Male}
+                      control={<Radio />}
+                      label="Мужской"
+                    />
+                    <FormControlLabel
+                      key={GenderType.Female}
+                      value={GenderType.Female}
+                      control={<Radio />}
+                      label="Женский"
+                    />
+                  </RadioGroup>
+                )}
+              />
             </div>
 
             <div className="mb-3">

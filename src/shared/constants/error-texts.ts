@@ -11,4 +11,6 @@ export const ERROR_TEXTS = {
   minLength: 'Минимальная длина:',
   maxLength: 'Максимальная длина:',
   onlyLatinNumbersSpecialSymbols: 'Только латинские буквы, цифры и спецсимволы',
+  onlyLatinAndCyrillic: 'Только кириллица, латиница и пробелы',
+  date: 'Не валидный формат даты',
 };

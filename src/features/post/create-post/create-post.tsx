@@ -78,9 +78,7 @@ export const CreatePost = () => {
         },
       });
 
-      setTimeout(() => {
-        toast(<Toast type="success" text={TOASTER_TEXTS.postCreated} />);
-      }, 1);
+      toast(<Toast type="success" text={TOASTER_TEXTS.postCreated} />);
 
       router.push(ROUTES.MY_POSTS);
     } catch (err) {
