@@ -88,6 +88,11 @@ const Root = styled.div<{ isDarkTheme?: boolean }>`
   .react-datepicker__day.react-datepicker__day--keyboard-selected {
     background: none;
     color: black;
+    color: ${({ isDarkTheme }) =>
+      isDarkTheme &&
+      `
+      white;
+    `};
   }
 
   .react-datepicker {

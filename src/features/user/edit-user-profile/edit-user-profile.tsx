@@ -2,7 +2,10 @@ import { ApolloError } from '@apollo/client';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FormControlLabel, Radio, RadioGroup } from '@mui/material';
 import { UserFragment } from '@shared/api/user/fragments/__generated__/user.fragment';
-import { UserEditProfileVariables } from '@shared/api/user/mutations/__generated__/user-edit-profile.mutation';
+import {
+  UserEditProfileVariables,
+  useUserEditProfile,
+} from '@shared/api/user/mutations/__generated__/user-edit-profile.mutation';
 import { useUserMe } from '@shared/api/user/queries/__generated__/user-me.query';
 import { COLORS } from '@shared/assets/colors';
 import { Toast } from '@shared/components/toast/toast';
@@ -31,8 +34,6 @@ import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
-import { useUserEditProfile } from './model/__generated__/user-edit-profile.mutation';
-
 type FormValues = {
   avatarUrl?: File;
   firstName?: string;
@@ -48,17 +49,20 @@ type FormValues = {
 export const schema = yup
   .object({
     avatarUrl: yup.mixed().nullable(),
-    firstName: yup.string().trim().matches(REGEX.onlyLetters, ERROR_TEXTS.onlyLatinAndCyrillic),
-    middleName: yup.string().trim().matches(REGEX.onlyLetters, ERROR_TEXTS.onlyLatinAndCyrillic),
-    lastName: yup.string().trim().matches(REGEX.onlyLetters, ERROR_TEXTS.onlyLatinAndCyrillic),
-    birthDate: yup.string().trim(),
+    firstName: yup.string().trim().matches(REGEX.onlyLetters, ERROR_TEXTS.onlyLatinAndCyrillic).nullable(),
+    middleName: yup.string().trim().matches(REGEX.onlyLetters, ERROR_TEXTS.onlyLatinAndCyrillic).nullable(),
+    lastName: yup.string().trim().matches(REGEX.onlyLetters, ERROR_TEXTS.onlyLatinAndCyrillic).nullable(),
+    birthDate: yup.string().trim().nullable(),
     gender: yup.string().nullable(),
     email: yup.string().trim().email(ERROR_TEXTS.email).required(ERROR_TEXTS.required),
     phone: yup
       .string()
       .trim()
-      .test('is-phone', 'Не валидный номер телефона', value => Boolean(isMobilePhone(value))),
-    country: yup.string().trim().matches(REGEX.onlyLetters, ERROR_TEXTS.onlyLatinAndCyrillic),
+      .nullable()
+      .test('is-phone', 'Не валидный номер телефона', value =>
+        Boolean(isMobilePhone(value) || value === '' || value === undefined)
+      ),
+    country: yup.string().trim().matches(REGEX.onlyLetters, ERROR_TEXTS.onlyLatinAndCyrillic).nullable(),
   })
   .required();
 
@@ -114,6 +118,7 @@ export const UserEditProfile = () => {
 
       const input = {
         ...data,
+        phone: data?.phone || undefined,
         birthDate: data?.birthDate ? dayjs(data?.birthDate).format(' YYYY-MM-DD').toString().trim() : undefined,
         avatarUrl: signedUrl,
       } as UserEditProfileVariables['input'];
@@ -151,7 +156,6 @@ export const UserEditProfile = () => {
   });
 
   useEffect(() => {
-    console.log(user?.gender);
     reset(
       {
         firstName: user?.firstName || undefined,

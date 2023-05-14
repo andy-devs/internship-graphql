@@ -12,5 +12,5 @@ export const REGEX = {
   notCyrillic: /^[^аАбБвВгГдДеЕёЁжЖзЗиИйЙкКлЛмМнНоОпПрРсСтТуУфФхХцЦчЧшШщЩъЪыЫьЬэЭюЮяЯ]+$/,
   name: /^(?=.{1,20}$)([A-Za-zА-Яа-я]+[A-Za-zА-Яа-я\s-]*[A-Za-zА-Яа-я]+)*$/i,
   onlyLatinAndNumbers: /^[A-Za-z0-9]+$/,
-  onlyLetters: /^[a-zA-ZА-Яа-я ]+$/g,
+  onlyLetters: /^[a-zA-ZА-Яа-я ]*$/,
 };

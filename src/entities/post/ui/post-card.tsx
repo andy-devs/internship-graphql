@@ -76,7 +76,7 @@ export const PostCard: FC<PostCardProps> = ({ post, isDetailPage, isMyPost, onCl
         />
       </div>
       <p
-        className={`body_regular_16pt text-grayscale600 dark:text-grayscale500 ${
+        className={`body_regular_16pt break-words text-grayscale600 dark:text-grayscale500 ${
           isDetailPage ? '' : 'line-clamp-2 sm:line-clamp-3'
         }`}
       >
