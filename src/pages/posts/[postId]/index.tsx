@@ -10,13 +10,21 @@ const PostPage = () => {
 
   const { postId } = router.query;
 
-  const { data, loading } = usePost({ variables: { input: { id: postId as string } } });
+  const { data, loading, error } = usePost({
+    variables: { input: { id: postId as string } },
+  });
 
   const post = data?.post;
 
   useEffect(() => {
-    router.prefetch('/');
+    router.prefetch(ROUTES.HOME);
   }, []);
+
+  useEffect(() => {
+    if (error) {
+      router.replace(ROUTES.HOME);
+    }
+  }, [error]);
 
   useEffect(() => {
     if (!StorageService.isAuthorized()) {
