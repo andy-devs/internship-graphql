@@ -216,7 +216,7 @@ export const UserEditProfile = () => {
             </div>
 
             <div className="mb-3">
-              <FormDatepicker label="Дата рождения" name="birthDate" control={control} />
+              <FormDatepicker label="Дата рождения" name="birthDate" maxDate={dayjs().toDate()} control={control} />
             </div>
 
             <div className="mb-3 flex flex-col items-start">
