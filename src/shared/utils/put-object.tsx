@@ -3,8 +3,11 @@ import { StorageService } from '@shared/services/utils/storage-service';
 import axios from 'axios';
 import { v4 as uuid } from 'uuid';
 
-export const putObject = async (file: File, type: FILE_TYPES) => {
-  const fileKey = `${uuid()}-${file.name.replace(/[^.\w]/g, '')}`;
+export const putObject = async (file: any, type: FILE_TYPES) => {
+  const fileType = file.path.split('.').at(-1);
+
+  const fileKey = `${uuid()}.${fileType}`;
+
   const url = `${REACT_APP_AWS_API_URL}/v1/aws/signed-url`;
 
   const response = await axios.get(url, {
@@ -12,13 +15,14 @@ export const putObject = async (file: File, type: FILE_TYPES) => {
       fileName: fileKey,
       fileCategory: type,
     },
-    headers: { Authorization: `Bearer ${StorageService.getAccessToken()}` },
+    headers: { Authorization: `Bearer ${StorageService.getAccessToken()}`, 'Content-Type': 'application/json' },
   });
 
   const signedUrl = response.data;
+
   await axios.put(signedUrl, file, {
     headers: {
-      'Content-Type': file.type,
+      'Content-Type': 'application/json',
     },
   });
 

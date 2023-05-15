@@ -124,7 +124,9 @@ export const DeletePost: FC<Props> = ({ postId, onSuccess, children }) => {
         },
       });
 
-      await removeObject(post?.data?.post?.mediaUrl || '', FILE_TYPES.POSTS);
+      setTimeout(async () => {
+        await removeObject(post?.data?.post?.mediaUrl || '', FILE_TYPES.POSTS);
+      }, 1);
 
       onSuccess?.();
 

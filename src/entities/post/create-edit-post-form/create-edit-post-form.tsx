@@ -48,7 +48,9 @@ export const CreateEditPostForm = ({ onSubmit, isLoading }: Props) => {
       <Dropzone
         defaultValue={getValues().image as File}
         acceptFileTypes={FILE_ACCEPTS.image}
-        onFileUpload={file => setValue('image', file)}
+        onFileUpload={file => {
+          setValue('image', file);
+        }}
         errorMessage={errors?.image?.message}
       />
 

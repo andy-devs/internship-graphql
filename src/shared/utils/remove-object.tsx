@@ -5,11 +5,15 @@ import axios from 'axios';
 export const removeObject = async (fileKey: string, type: FILE_TYPES) => {
   const url = `${REACT_APP_AWS_API_URL}/v1/aws/delete-s3-file`;
 
-  await axios.delete(url, {
-    params: {
-      fileKey,
-      fileCategory: type,
-    },
-    headers: { Authorization: `Bearer ${StorageService.getAccessToken()}` },
-  });
+  try {
+    await axios.delete(url, {
+      params: {
+        fileKey,
+        fileCategory: type,
+      },
+      headers: { Authorization: `Bearer ${StorageService.getAccessToken()}` },
+    });
+  } catch (e) {
+    console.log(e);
+  }
 };

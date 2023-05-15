@@ -21,9 +21,11 @@ export const useDropzoneFields = ({
     setFile(defaultValue);
   }, [defaultValue]);
 
-  const onDropAccepted = useCallback(async (acceptedFiles: File[]) => {
+  const onDropAccepted = async (acceptedFiles: File[]) => {
     if (acceptedFiles.length) {
       const fileUpload = acceptedFiles[0];
+
+      const newFile = { ...fileUpload };
 
       try {
         setFile(
@@ -35,7 +37,7 @@ export const useDropzoneFields = ({
         setIsErrorFormat(true);
       }
     }
-  }, []);
+  };
 
   const deleteFile = useCallback((file: File) => {
     acceptedFiles.splice(acceptedFiles.indexOf(file), 1);

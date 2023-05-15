@@ -72,7 +72,7 @@ export const PostCard: FC<PostCardProps> = ({ post, isDetailPage, isMyPost, onCl
           alt={post?.title as string}
           width={663}
           height={346}
-          className="mb-2 max-h-[336px] w-full max-w-[663px] rounded-[18px] object-cover"
+          className="mb-2 max-h-[211px] w-full max-w-[663px] rounded-[18px] object-cover sm:max-h-[336px]"
         />
       </div>
       <p
