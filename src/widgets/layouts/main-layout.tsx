@@ -8,7 +8,7 @@ interface MainLayoutProps {
 
 export const MainLayout: FC<MainLayoutProps> = ({ children, className }) => {
   return (
-    <div className="relative flex flex-col">
+    <div className="relative flex min-h-screen flex-col">
       <Header />
       <main className={`h-full flex-auto py-3 px-2 ${className}`}>
         <>{children}</>

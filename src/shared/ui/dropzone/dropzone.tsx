@@ -51,7 +51,12 @@ export const Dropzone = ({
           {isParsing ? (
             <LoadingInputLine fileName={file.name} />
           ) : (
-            <FileInputLine fileName={file.name} filePreview={file?.preview} onClose={() => deleteFile(file)} />
+            <FileInputLine
+              fileName={file.name}
+              filePreview={file?.preview}
+              onClose={() => deleteFile(file)}
+              isDragActive={isDragActive}
+            />
           )}
         </>
       )}

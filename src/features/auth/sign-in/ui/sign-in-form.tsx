@@ -27,7 +27,7 @@ export const SignInForm: FC<SignInFormProps> = ({ onSubmit, isSubmitting }) => {
           {...register('password')}
           errorText={errors?.password?.message}
         />
-        <PrimaryButton text="Войти" className="" isLoading={isSubmitting} />
+        <PrimaryButton text="Войти" className="mt-auto" isLoading={isSubmitting} />
       </form>
     </AuthFormCard>
   );

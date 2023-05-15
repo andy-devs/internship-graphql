@@ -32,7 +32,7 @@ export const CreateEditPostForm = ({ onSubmit, isLoading }: Props) => {
   return (
     <form
       onSubmit={onSubmit}
-      className="mx-auto flex max-w-[743px] flex-col rounded-2xl bg-grayscale100 p-0 dark:bg-grayscale800 sm:p-5 sm:dark:bg-grayscale700"
+      className="mx-auto flex h-full max-w-[743px] flex-auto flex-col rounded-2xl bg-grayscale100 p-0 dark:bg-grayscale800 sm:p-5 sm:dark:bg-grayscale700"
     >
       <h1 className="title_bold_24pt mb-4 hidden text-primary500 dark:text-primary600 sm:block">Создание поста</h1>
 
