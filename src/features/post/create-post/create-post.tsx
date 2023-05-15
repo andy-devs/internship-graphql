@@ -24,7 +24,7 @@ type FormValues = {
 
 export const schema = yup
   .object({
-    title: yup.string().trim().required(ERROR_TEXTS.required),
+    title: yup.string().trim().required(ERROR_TEXTS.required).min(5, `${ERROR_TEXTS.minLength} 5`),
     image: yup.mixed().required(ERROR_TEXTS.required),
     description: yup.string().trim().required(ERROR_TEXTS.required).min(40, `${ERROR_TEXTS.minLength} 40`),
   })
