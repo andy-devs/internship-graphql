@@ -48,8 +48,8 @@ export const CreatePost = () => {
       await postCreate({
         variables: {
           input: {
-            title: data?.title,
-            description: data?.description,
+            title: data?.title.trim(),
+            description: data?.description.trim(),
             mediaUrl: signedUrl,
           },
         },
