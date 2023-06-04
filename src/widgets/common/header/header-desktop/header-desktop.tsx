@@ -21,7 +21,9 @@ export const HeaderDesktop: FC<HeaderDesktopProps> = ({ navLinks, userData, isLo
   return (
     <header className="sticky top-[-1px] z-[45] hidden min-h-[64px] w-full  bg-grayscale100 px-[12px] dark:bg-grayscale700 md:block  lg:px-[48px]">
       <div className="mx-auto flex min-h-[64px] max-w-[1440px] items-center justify-between">
-        <SvgLogo className="min-w-[144px] flex-1" />
+        <Link href={ROUTES.HOME} className="min-w-[144px] flex-1">
+          <SvgLogo className="min-w-[144px]" />
+        </Link>
         <NoSsr>
           <nav
             className={`mx-4 flex w-full max-w-[420px] flex-1 flex-row items-center ${
