@@ -3,6 +3,7 @@ import { usePostLike } from '@features/post/post-like/post-like';
 import { usePostUnlike } from '@features/post/post-unlike/post-unlike';
 import { useSharePostLinkModal } from '@features/post/share-post-link/lib/use-share-post-link-modal';
 import { PostFragment } from '@shared/api/post/fragments/__generated__/post.fragment';
+import { useUserMe } from '@shared/api/user/queries/__generated__/user-me.query';
 import { SvgCloseIcon } from '@shared/icons/components/close-icon';
 import { SvgDeleteIcon } from '@shared/icons/components/delete-icon';
 import { SvgFilledHeartIcon } from '@shared/icons/components/filled-heart-icon';
@@ -25,6 +26,12 @@ interface PostCardProps {
 
 export const PostCard: FC<PostCardProps> = ({ post, isDetailPage, isMyPost, onCloseCallback }) => {
   const { showShareLinkModal } = useSharePostLinkModal();
+
+  const { data } = useUserMe({ fetchPolicy: 'cache-only' });
+
+  const isAdmin = data?.userMe?.email === 'myfeedadmin@mail.ru';
+
+  console.log(isAdmin);
 
   const router = useRouter();
 
@@ -52,6 +59,9 @@ export const PostCard: FC<PostCardProps> = ({ post, isDetailPage, isMyPost, onCl
           </div>
         </div>
         {isDetailPage && <IconButton onClick={onCloseCallback} icon={<SvgCloseIcon />} />}
+        {isAdmin && !isMyPost && (
+          <DeletePost postId={post?.id || ''}>{props => <IconButton icon={<SvgDeleteIcon />} {...props} />}</DeletePost>
+        )}
         {isMyPost && (
           <div className="hidden gap-3 sm:flex">
             <IconButton icon={<SvgShareIcon />} onClick={() => showShareLinkModal(post?.id)} />

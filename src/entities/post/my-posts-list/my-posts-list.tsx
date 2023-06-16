@@ -18,7 +18,7 @@ interface PostsListProps {}
 
 export const MyPostsList: FC<PostsListProps> = () => {
   const { data, networkStatus, fetchMore } = useMyPosts({
-    variables: { input: { limit: 2 } },
+    variables: { input: { limit: 5 } },
     notifyOnNetworkStatusChange: true,
   });
 

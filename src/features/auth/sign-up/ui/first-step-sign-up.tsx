@@ -1,8 +1,10 @@
+import { FormControlLabel } from '@mui/material';
 import { PrimaryButton } from '@shared/ui/buttons/primary-button';
+import { Checkbox } from '@shared/ui/checkbox/checkbox';
 import { Input } from '@shared/ui/inputs/input';
 import { PasswordInput } from '@shared/ui/inputs/password-input';
 import { FC } from 'react';
-import { useFormContext } from 'react-hook-form';
+import { Controller, useFormContext } from 'react-hook-form';
 
 interface FirstStepSignUpProps {
   setStep: (step: number) => void;
@@ -11,14 +13,18 @@ interface FirstStepSignUpProps {
 export const FirstStepSignUp: FC<FirstStepSignUpProps> = ({ setStep }) => {
   const {
     register,
+    control,
     formState: { errors, isValid },
     trigger,
   } = useFormContext();
+
+  console.log(errors);
 
   const handleNextStep = () => {
     trigger('email');
     trigger('password');
     trigger('passwordConfirm');
+    trigger('rules');
 
     if (isValid) {
       setStep(2);
@@ -36,10 +42,31 @@ export const FirstStepSignUp: FC<FirstStepSignUpProps> = ({ setStep }) => {
       />
       <PasswordInput
         label="Введите пароль еще раз"
-        className="mb-5"
+        className="mb-1"
         {...register('passwordConfirm')}
         errorText={errors?.passwordConfirm?.message as string}
       />
+      <div className="mr-auto mb-3">
+        <FormControlLabel
+          control={
+            <Controller
+              name="rules"
+              defaultValue={true}
+              control={control}
+              render={({ field }) => (
+                <Checkbox
+                  {...field}
+                  checked={field.value}
+                  onChange={e => field.onChange(e.target.checked)}
+                  hasError={Boolean(errors?.rules?.message)}
+                />
+              )}
+            />
+          }
+          label="Согласие с обработкой данных"
+        />
+      </div>
+
       <PrimaryButton text="Далее" className="mt-auto" type="button" onClick={handleNextStep} />
     </div>
   );

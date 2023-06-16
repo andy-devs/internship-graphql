@@ -26,7 +26,7 @@ export const PostsList: FC<PostsListProps> = () => {
   const isFirstRender = useIsFirstRender();
 
   const { data, refetch, networkStatus, fetchMore } = usePosts({
-    variables: { input: { type: sort, limit: 2 } },
+    variables: { input: { type: sort, limit: 5 } },
     notifyOnNetworkStatusChange: true,
   });
 

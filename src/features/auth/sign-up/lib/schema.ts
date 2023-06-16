@@ -25,6 +25,7 @@ export const schema = yup
       .string()
       .oneOf([yup.ref('password')], ERROR_TEXTS.passwordNotMatching)
       .required(ERROR_TEXTS.required),
+    rules: yup.bool().oneOf([true], ERROR_TEXTS.required),
     firstName: yup.string().trim(),
     lastName: yup.string().trim(),
     middleName: yup.string().trim(),
