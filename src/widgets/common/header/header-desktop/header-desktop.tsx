@@ -1,4 +1,5 @@
-import { NoSsr } from '@mui/material';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import { NoSsr, Tooltip } from '@mui/material';
 import { ThemeToggle } from '@shared/components/theme-toggle/theme-toggle';
 import { ROUTES } from '@shared/constants/routes';
 import { SvgLogo } from '@shared/icons/components/logo';
@@ -45,7 +46,19 @@ export const HeaderDesktop: FC<HeaderDesktopProps> = ({ navLinks, userData, isLo
             ))}
           </nav>
         </NoSsr>
-        <div className="ml-auto flex flex-1 flex-row items-center justify-end gap-2 lg:gap-[40px]">
+        <div className="ml-auto flex flex-1 flex-row items-center justify-end gap-2 lg:gap-[20px]">
+          <Tooltip
+            title={
+              <p className="caption_regular_12pt max-w-[170px]">
+                По всем вопросам писать на почту:{' '}
+                <a className="text-primary400" href="mailto:myfeedblog1@mail.ru">
+                  myfeedblog1@mail.ru
+                </a>
+              </p>
+            }
+          >
+            <HelpOutlineIcon />
+          </Tooltip>
           <ThemeToggle />
           {isLoading ? (
             <UserDropdown isLoading={isLoading} />

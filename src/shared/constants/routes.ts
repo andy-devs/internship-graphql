@@ -9,6 +9,7 @@ export const ROUTES = {
   POST: '/posts/[postId]',
   CREATE_POST: '/posts/create',
   EDIT_POST: '/posts/[postId]/edit',
+  RULES: '/rules',
 } as const;
 
 export const ROUTE_NAMES = {
@@ -20,4 +21,5 @@ export const ROUTE_NAMES = {
   [ROUTES.EDIT_POST]: 'Редактирование поста',
   [ROUTES.POST]: 'Страница поста',
   [ROUTES.PROFILE]: 'Мой профиль',
+  [ROUTES.RULES]: 'Правила согласия',
 } as Record<string, string>;

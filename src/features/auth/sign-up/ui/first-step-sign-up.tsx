@@ -1,14 +1,28 @@
 import { FormControlLabel } from '@mui/material';
+import { ROUTES } from '@shared/constants/routes';
 import { PrimaryButton } from '@shared/ui/buttons/primary-button';
 import { Checkbox } from '@shared/ui/checkbox/checkbox';
 import { Input } from '@shared/ui/inputs/input';
 import { PasswordInput } from '@shared/ui/inputs/password-input';
+import Link from 'next/link';
 import { FC } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 
 interface FirstStepSignUpProps {
   setStep: (step: number) => void;
 }
+
+const RulesLabel = () => {
+  return (
+    <p className="body_regular_14pt cursor-default" onClick={e => e.stopPropagation()}>
+      Согласие с{' '}
+      <Link className="text-primary500 dark:text-primary400" href={ROUTES.RULES}>
+        правилами
+      </Link>{' '}
+      обработки данных
+    </p>
+  );
+};
 
 export const FirstStepSignUp: FC<FirstStepSignUpProps> = ({ setStep }) => {
   const {
@@ -17,8 +31,6 @@ export const FirstStepSignUp: FC<FirstStepSignUpProps> = ({ setStep }) => {
     formState: { errors, isValid },
     trigger,
   } = useFormContext();
-
-  console.log(errors);
 
   const handleNextStep = () => {
     trigger('email');
@@ -63,7 +75,7 @@ export const FirstStepSignUp: FC<FirstStepSignUpProps> = ({ setStep }) => {
               )}
             />
           }
-          label="Согласие с обработкой данных"
+          label={<RulesLabel />}
         />
       </div>
 

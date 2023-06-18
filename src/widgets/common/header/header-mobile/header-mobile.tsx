@@ -1,3 +1,5 @@
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import { Tooltip } from '@mui/material';
 import { ThemeToggle } from '@shared/components/theme-toggle/theme-toggle';
 import { ROUTE_NAMES, ROUTES } from '@shared/constants/routes';
 import { SvgCloseIcon } from '@shared/icons/components/close-icon';
@@ -74,7 +76,21 @@ export const HeaderMobile: FC<HeaderMobileProps> = ({ navLinks, userData, isLoad
       </div>
       {isOpen && (
         <div className="mt-[20px] flex min-h-[calc(100vh_-_83px)] w-full flex-col items-start px-2">
-          <UserProfile isMobile userData={userData} isLoading={isLoading} />
+          <div className="flex items-center gap-2">
+            <UserProfile isMobile userData={userData} isLoading={isLoading} />
+            <Tooltip
+              title={
+                <p className="caption_regular_12pt max-w-[170px]">
+                  По всем вопросам писать на почту:{' '}
+                  <a className="text-primary400" href="mailto:myfeedblog1@mail.ru">
+                    myfeedblog1@mail.ru
+                  </a>
+                </p>
+              }
+            >
+              <HelpOutlineIcon />
+            </Tooltip>
+          </div>
           <nav className="mt-[20px] w-full">
             {!StorageService.isAuthorized() && (
               <Link
