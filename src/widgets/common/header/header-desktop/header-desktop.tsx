@@ -48,6 +48,8 @@ export const HeaderDesktop: FC<HeaderDesktopProps> = ({ navLinks, userData, isLo
         </NoSsr>
         <div className="ml-auto flex flex-1 flex-row items-center justify-end gap-2 lg:gap-[20px]">
           <Tooltip
+            enterTouchDelay={0}
+            leaveTouchDelay={0}
             title={
               <p className="caption_regular_12pt max-w-[170px]">
                 По всем вопросам писать на почту:{' '}
