@@ -80,7 +80,7 @@ export const HeaderMobile: FC<HeaderMobileProps> = ({ navLinks, userData, isLoad
             <UserProfile isMobile userData={userData} isLoading={isLoading} />
             <Tooltip
               enterTouchDelay={0}
-              leaveTouchDelay={0}
+              leaveTouchDelay={2000}
               title={
                 <p className="caption_regular_12pt max-w-[170px]">
                   По всем вопросам писать на почту:{' '}
